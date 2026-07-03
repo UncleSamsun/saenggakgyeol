@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+  <title id="title">생각결 symbol</title>
+  <desc id="desc">Two time-context lines with note and transcript nodes meeting in the center.</desc>
+  <rect width="128" height="128" rx="28" fill="#F8F9F6"/>
+  <path d="M24 42 C43 24 64 27 82 45 C91 54 101 57 111 52" fill="none" stroke="#155E52" stroke-width="8" stroke-linecap="round"/>
+  <path d="M17 84 C36 64 55 65 72 78 C86 89 99 92 113 79" fill="none" stroke="#355C9A" stroke-width="8" stroke-linecap="round"/>
+  <path d="M46 42 C54 58 65 68 82 78" fill="none" stroke="#B45F3A" stroke-width="5" stroke-linecap="round"/>
+  <circle cx="43" cy="34" r="7" fill="#155E52"/>
+  <circle cx="82" cy="45" r="7" fill="#155E52"/>
+  <circle cx="45" cy="72" r="7" fill="#355C9A"/>
+  <circle cx="82" cy="84" r="7" fill="#355C9A"/>
+  <circle cx="64" cy="63" r="8" fill="#F4C95D" stroke="#1E2320" stroke-width="3"/>
+</svg>
