@@ -1,0 +1,900 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>생각결 PRD / Screen Definition</title>
+  <link rel="icon" href="../assets/brand/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&amp;family=IBM+Plex+Mono:wght@400;500;600&amp;family=IBM+Plex+Sans+KR:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+  <style>
+    :root {
+      color-scheme: light;
+      --sg-color-ink: #1E2320;
+      --sg-color-muted: #68736D;
+      --sg-color-canvas: #F8F9F6;
+      --sg-color-surface: #FFFFFF;
+      --sg-color-surface-soft: #EEF3EF;
+      --sg-color-line: #D7DED9;
+      --sg-color-primary: #155E52;
+      --sg-color-context: #355C9A;
+      --sg-color-signal: #B45F3A;
+      --sg-color-focus: #F4C95D;
+      --sg-color-success: #2F7D54;
+      --sg-color-warning: #B7791F;
+      --sg-color-error: #B4473F;
+      --shadow-soft: 0 18px 54px rgba(30, 35, 32, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--sg-color-ink);
+      background: var(--sg-color-canvas);
+      font-family: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+      line-height: 1.68;
+    }
+
+    a {
+      color: var(--sg-color-context);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: 286px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      overflow: auto;
+      background: rgba(255, 255, 255, 0.78);
+      border-right: 1px solid var(--sg-color-line);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand img {
+      display: block;
+      width: 174px;
+      height: auto;
+    }
+
+    .brand p {
+      margin: 14px 0 0;
+      color: var(--sg-color-muted);
+      font-size: 12px;
+    }
+
+    nav {
+      margin-top: 26px;
+    }
+
+    nav a {
+      display: block;
+      padding: 8px 0;
+      color: var(--sg-color-ink);
+      font-size: 14px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(215, 222, 217, 0.72);
+    }
+
+    nav a:hover {
+      color: var(--sg-color-primary);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      padding: 64px min(7vw, 92px) 42px;
+      border-bottom: 1px solid var(--sg-color-line);
+      background: var(--sg-color-surface);
+    }
+
+    .eyebrow {
+      color: var(--sg-color-primary);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 14px 0 18px;
+      font-family: "Gowun Batang", serif;
+      font-size: clamp(42px, 6.4vw, 78px);
+      line-height: 1.08;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 900px;
+      margin: 0;
+      color: var(--sg-color-muted);
+      font-size: 20px;
+    }
+
+    .hero-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 26px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 14px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: var(--sg-color-surface);
+      color: var(--sg-color-ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      color: #fff;
+      border-color: var(--sg-color-primary);
+      background: var(--sg-color-primary);
+    }
+
+    section {
+      padding: 46px min(7vw, 92px);
+      border-bottom: 1px solid var(--sg-color-line);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 32px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 20px;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    p {
+      max-width: 940px;
+      margin: 0 0 14px;
+    }
+
+    ul,
+    ol {
+      max-width: 980px;
+      margin-top: 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    code,
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.94em;
+    }
+
+    .lead {
+      color: var(--sg-color-muted);
+      font-size: 18px;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .card,
+    .panel {
+      padding: 18px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: var(--sg-color-surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: var(--sg-color-muted);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      color: #fff;
+      background: var(--sg-color-primary);
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .status.next {
+      background: var(--sg-color-context);
+    }
+
+    .status.out {
+      background: var(--sg-color-muted);
+    }
+
+    table {
+      width: 100%;
+      margin-top: 18px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: var(--sg-color-surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    th,
+    td {
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--sg-color-line);
+      font-size: 14px;
+    }
+
+    th {
+      background: var(--sg-color-surface-soft);
+      font-weight: 800;
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .step {
+      min-height: 118px;
+      padding: 14px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: var(--sg-color-surface);
+    }
+
+    .step b {
+      display: block;
+      margin-bottom: 8px;
+      color: var(--sg-color-primary);
+    }
+
+    .mock {
+      margin-top: 18px;
+      overflow: hidden;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 10px;
+      background: var(--sg-color-surface);
+      box-shadow: var(--shadow-soft);
+    }
+
+    .mock-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--sg-color-line);
+      background: var(--sg-color-surface-soft);
+    }
+
+    .mock-grid {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr) 250px;
+      min-height: 380px;
+    }
+
+    .mock-side,
+    .mock-main,
+    .mock-context {
+      padding: 18px;
+    }
+
+    .mock-main {
+      border-inline: 1px solid var(--sg-color-line);
+    }
+
+    .row {
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(215, 222, 217, 0.74);
+    }
+
+    .tabs {
+      display: flex;
+      gap: 22px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid var(--sg-color-line);
+    }
+
+    .tab {
+      min-height: 36px;
+      color: var(--sg-color-muted);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--sg-color-primary);
+      border-bottom: 2px solid var(--sg-color-primary);
+      font-weight: 700;
+    }
+
+    .note-line {
+      display: grid;
+      grid-template-columns: 60px minmax(0, 1fr);
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px solid rgba(215, 222, 217, 0.72);
+    }
+
+    .time {
+      align-self: start;
+      padding: 2px 7px;
+      border-radius: 4px;
+      background: var(--sg-color-surface-soft);
+      color: var(--sg-color-muted);
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 12px;
+    }
+
+    .evidence {
+      padding: 14px;
+      border-left: 3px solid var(--sg-color-context);
+      border-radius: 4px;
+      background: rgba(53, 92, 154, 0.08);
+    }
+
+    .callout {
+      max-width: 980px;
+      margin-top: 18px;
+      padding: 16px;
+      border-left: 4px solid var(--sg-color-primary);
+      border-radius: 6px;
+      background: var(--sg-color-surface-soft);
+    }
+
+    pre {
+      overflow-x: auto;
+      padding: 16px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: #151A17;
+      color: #EEF3EF;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      line-height: 1.58;
+    }
+
+    footer {
+      padding: 32px min(7vw, 92px);
+      color: var(--sg-color-muted);
+      font-size: 12px;
+    }
+
+    @media (max-width: 1040px) {
+      .layout,
+      .mock-grid {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+        height: auto;
+      }
+
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 16px;
+      }
+
+      .cards,
+      .flow {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .mock-main {
+        border-inline: 0;
+        border-block: 1px solid var(--sg-color-line);
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav,
+      .cards,
+      .flow {
+        grid-template-columns: 1fr;
+      }
+
+      section,
+      .hero {
+        padding-inline: 22px;
+      }
+
+      .tabs,
+      table {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside>
+      <div class="brand">
+        <img src="../assets/brand/logo-wordmark.svg" alt="생각결">
+        <p>PRD / Screen Definition v1. D14 Product-Core MVP를 구현 가능한 화면 계약으로 바꾼 문서.</p>
+      </div>
+      <nav aria-label="스펙 문서 목차">
+        <a href="../">Project tracker</a>
+        <a href="../product/">Product concept</a>
+        <a href="../design/">Design system</a>
+        <a href="#summary">Summary</a>
+        <a href="#prd">PRD</a>
+        <a href="#requirements">Requirements</a>
+        <a href="#flows">User flows</a>
+        <a href="#screens">Screen definitions</a>
+        <a href="#states">States and errors</a>
+        <a href="#data">Data contract</a>
+        <a href="#acceptance">Acceptance criteria</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero" id="summary">
+        <div class="eyebrow">PRD / Screen Definition v1</div>
+        <h1>생각결의 첫 구현은 “긴 세션을 쓰고, 시간 맥락을 되찾는” 흐름을 끝까지 닫는다.</h1>
+        <p>
+          이 문서는 D14 승인 제품 방향을 macOS 앱 구현 계약으로 바꿉니다. 구현자는 여기서 MVP 범위, 사용자 흐름, 화면별 요구사항, 상태와 실패 처리를 확인하고 바로 skeleton 설계로 넘어갈 수 있어야 합니다.
+        </p>
+        <div class="hero-links">
+          <a class="button primary" href="#screens">화면 정의 보기</a>
+          <a class="button" href="../design/">디자인 시스템</a>
+          <a class="button" href="../product/">제품 컨셉</a>
+        </div>
+      </header>
+
+      <section>
+        <h2>Documentation Plan</h2>
+        <p class="lead">
+          이 문서는 Diataxis 기준으로 Reference와 Explanation을 합친 산출물입니다. 앱 구현 전에 요구사항과 화면 동작을 잠그는 것이 목적입니다.
+        </p>
+        <table>
+          <thead>
+            <tr>
+              <th>Entity</th>
+              <th>Reference</th>
+              <th>Explanation</th>
+              <th>How-to / Tutorial</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product-Core MVP requirements</td>
+              <td><span class="status">Included</span></td>
+              <td><span class="status">Included</span></td>
+              <td><span class="status out">Out of scope</span></td>
+            </tr>
+            <tr>
+              <td>Screen definition</td>
+              <td><span class="status">Included</span></td>
+              <td><span class="status">Included</span></td>
+              <td><span class="status out">Out of scope</span></td>
+            </tr>
+            <tr>
+              <td>Engineering implementation</td>
+              <td><span class="status next">Next doc</span></td>
+              <td><span class="status next">Next doc</span></td>
+              <td><span class="status out">Out of scope</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="prd">
+        <h2>PRD</h2>
+        <div class="cards">
+          <div class="card">
+            <strong>Product</strong>
+            <p class="muted">메모와 녹음 transcript를 시간순으로 맞춰 생각의 맥락을 복원하는 Mac capture app.</p>
+          </div>
+          <div class="card">
+            <strong>Primary user</strong>
+            <p class="muted">Minjoun. 회의, 혼자 생각하는 세션, 프로젝트 정리 중 긴 내용을 흐름대로 쓰는 사용자.</p>
+          </div>
+          <div class="card">
+            <strong>Product promise</strong>
+            <p class="muted">세션이 끝났을 때 사용자는 “내가 왜 이 메모를 남겼는지”를 transcript 근거와 함께 다시 볼 수 있다.</p>
+          </div>
+        </div>
+
+        <h3>Problem</h3>
+        <p>
+          회의나 사고 세션 중에는 메모를 계속 남기지만, 시간이 지나면 문장만 남고 맥락이 사라집니다. 녹음 transcript가 있어도 메모와 따로 있으면 다시 대조하는 비용이 커서 실제로 잘 쓰지 않게 됩니다.
+        </p>
+
+        <h3>MVP Goal</h3>
+        <p>
+          v1은 menu bar app, global hotkey floating editor, timestamped notes, optional recording, transcript matching, AI synthesis, Obsidian Markdown output까지 이어지는 Product-Core MVP입니다.
+        </p>
+
+        <h3>Non-goals</h3>
+        <ul>
+          <li>전체 노트앱 대체.</li>
+          <li>항상 켜져 있는 background recording.</li>
+          <li>실시간 AI 공동작성 또는 입력 중 자동 요약.</li>
+          <li>팀 공유, 계정 시스템, 웹 동기화.</li>
+          <li>복잡한 block editor.</li>
+          <li>위젯 안에서 긴 편집을 처리하는 UX.</li>
+        </ul>
+      </section>
+
+      <section id="requirements">
+        <h2>Functional Requirements</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Requirement</th>
+              <th>Acceptance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">R1</td>
+              <td>사용자는 메뉴바에서 새 세션을 시작하고 최근 세션을 열 수 있다.</td>
+              <td>메뉴바 popover에서 active/recent/pending 상태가 보이고 editor로 진입한다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R2</td>
+              <td>전역 단축키는 floating session editor를 500ms 목표로 연다.</td>
+              <td>이미 active session이 있으면 새 세션이 아니라 기존 editor를 복귀한다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R3</td>
+              <td>사용자는 세션 내내 자유롭게 긴 내용을 작성할 수 있다.</td>
+              <td>30분 세션, 100개 이상 note chunk, 긴 문단 작성에서 UI가 작은 메모장처럼 막히지 않는다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R4</td>
+              <td>각 note chunk에는 세션 시작 기준 시간이 붙는다.</td>
+              <td>Markdown과 DB 모두 같은 offset을 보존한다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R5</td>
+              <td>녹음은 기본 OFF이고 사용자가 세션 중 켤 수 있다.</td>
+              <td>녹음 토글은 note timestamp를 깨지 않고 permission/failure 상태를 노출한다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R6</td>
+              <td>전사 결과는 transcript chunk로 저장된다.</td>
+              <td>각 chunk는 start/end offset, text, optional confidence/speaker를 가진다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R7</td>
+              <td>note chunk 선택 시 주변 transcript context를 볼 수 있다.</td>
+              <td>기본 window는 해당 note 기준 전후 60초다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R8</td>
+              <td>세션 종료 후 AI synthesis를 실행할 수 있다.</td>
+              <td>summary, decisions, tasks, questions, evidence snippets가 생성되거나 실패 상태가 보인다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R9</td>
+              <td>세션 결과는 Obsidian Markdown으로 저장된다.</td>
+              <td>앱 DB가 없어도 Markdown은 사람이 읽을 수 있다.</td>
+            </tr>
+            <tr>
+              <td class="mono">R10</td>
+              <td>로컬 DB는 index/cache/status를 담당한다.</td>
+              <td>DB에는 session, note, transcript, synthesis processing state가 저장된다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="flows">
+        <h2>User Flows</h2>
+        <div class="flow" aria-label="핵심 사용자 흐름">
+          <div class="step"><b>1. Start</b><span>메뉴바 또는 단축키로 세션을 시작한다.</span></div>
+          <div class="step"><b>2. Write</b><span>Notes 탭에서 흐름대로 길게 작성한다.</span></div>
+          <div class="step"><b>3. Record</b><span>필요할 때만 녹음을 켠다.</span></div>
+          <div class="step"><b>4. Match</b><span>note와 transcript를 시간 기준으로 대조한다.</span></div>
+          <div class="step"><b>5. Synthesize</b><span>세션 종료 후 AI 정리본을 만든다.</span></div>
+          <div class="step"><b>6. Save</b><span>Obsidian Markdown으로 저장하고 열 수 있다.</span></div>
+        </div>
+
+        <h3>Primary Flow: Solo Thinking Session</h3>
+        <ol>
+          <li>사용자가 전역 단축키를 누른다.</li>
+          <li>Floating editor가 active session 없이 열리면 새 solo session을 만든다.</li>
+          <li>사용자는 Notes 탭에서 자유롭게 작성한다.</li>
+          <li>필요하면 recording toggle을 켠다.</li>
+          <li>세션 종료 시 앱은 Markdown draft를 만들고 synthesis를 queued 상태로 둔다.</li>
+          <li>synthesis 완료 후 사용자는 Obsidian에서 결과를 연다.</li>
+        </ol>
+
+        <h3>Secondary Flow: Meeting Session</h3>
+        <ol>
+          <li>사용자가 메뉴바에서 녹음 세션 시작을 선택한다.</li>
+          <li>permission이 없으면 앱은 recording permission screen으로 안내한다.</li>
+          <li>회의 중 사용자는 notes를 짧거나 길게 남긴다.</li>
+          <li>세션 종료 후 transcript와 notes가 시간 기준으로 묶인다.</li>
+          <li>Tasks 탭에서 할 일, 결정, 질문을 확인한다.</li>
+        </ol>
+      </section>
+
+      <section id="screens">
+        <h2>Screen Definitions</h2>
+        <p class="lead">
+          모든 화면은 <a href="../design/">Brand / Design System</a>의 Quiet Native Workspace 기준을 따른다. AI 출력은 사용자가 쓴 원문보다 시각적으로 앞서면 안 된다.
+        </p>
+
+        <h3>S1. Menu Bar Popover</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Area</th>
+              <th>Content</th>
+              <th>Behavior</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Header</td>
+              <td>생각결 logo, active session timer, recording state.</td>
+              <td>Active session이 있으면 가장 위에 고정한다.</td>
+            </tr>
+            <tr>
+              <td>Quick actions</td>
+              <td>Start quick note, start recording session, resume session.</td>
+              <td>Primary action은 active session 유무에 따라 resume 또는 start.</td>
+            </tr>
+            <tr>
+              <td>Recent sessions</td>
+              <td>최근 5개 session title, status, last activity.</td>
+              <td>클릭 시 floating editor 또는 full editor로 연다.</td>
+            </tr>
+            <tr>
+              <td>Footer</td>
+              <td>Open Obsidian, Settings, processing failures.</td>
+              <td>실패가 있으면 warning state를 노출한다.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>S2. Floating Session Editor</h3>
+        <div class="mock" aria-label="floating session editor screen definition">
+          <div class="mock-top">
+            <strong>생각결 · Solo session · 18:42</strong>
+            <span class="mono">recording off · autosaved</span>
+          </div>
+          <div class="mock-grid">
+            <div class="mock-side">
+              <div class="row"><strong>Sessions</strong></div>
+              <div class="row"><span class="status">Active</span><br>면접 준비 생각 정리</div>
+              <div class="row">제품 회의<br><span class="muted mono">42:10 · completed</span></div>
+            </div>
+            <div class="mock-main">
+              <div class="tabs">
+                <div class="tab active">Notes</div>
+                <div class="tab">Transcript</div>
+                <div class="tab">Synthesis</div>
+                <div class="tab">Tasks</div>
+              </div>
+              <div class="note-line"><span class="time">00:10</span><span>그냥 노트앱이면 약하다. 핵심은 생각이 나온 시점의 맥락.</span></div>
+              <div class="note-line"><span class="time">03:28</span><span>회의 중에는 계속 타이핑할 것 같다. 마커가 필수면 안 된다.</span></div>
+              <div class="note-line"><span class="time">08:44</span><span>Obsidian이 원본이고 앱 DB는 검색과 상태 캐시만.</span></div>
+            </div>
+            <div class="mock-context">
+              <h3>Context</h3>
+              <div class="evidence">
+                <p class="mono">03:05-03:55</p>
+                <p>선택된 note 주변 transcript가 있으면 이 영역에 표시한다.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <ul>
+          <li>Compact width에서는 session list와 context panel을 접고 Notes editor를 먼저 지킨다.</li>
+          <li>Expanded width 목표는 760px 이상이다.</li>
+          <li>Autosave 상태는 조용하게 표시한다. 사용자를 방해하지 않는다.</li>
+          <li>End Session은 destructive하지 않다. 종료 후에도 session은 다시 열 수 있다.</li>
+        </ul>
+
+        <h3>S3. Session Editor Tabs</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>Tab</th>
+              <th>Purpose</th>
+              <th>Empty state</th>
+              <th>Primary action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Notes</td>
+              <td>사용자가 세션 중 직접 작성한 원문.</td>
+              <td>“생각나는 대로 적어도 시간이 붙습니다.”</td>
+              <td>Write note.</td>
+            </tr>
+            <tr>
+              <td>Transcript</td>
+              <td>녹음이 켜진 구간의 transcript chunks.</td>
+              <td>“녹음을 켜면 transcript context가 여기에 붙습니다.”</td>
+              <td>Start recording or import transcript later.</td>
+            </tr>
+            <tr>
+              <td>Synthesis</td>
+              <td>AI가 만든 summary, decisions, questions.</td>
+              <td>“세션을 종료하면 정리본을 만들 수 있습니다.”</td>
+              <td>Run synthesis.</td>
+            </tr>
+            <tr>
+              <td>Tasks</td>
+              <td>할 일, 결정, 질문, follow-up.</td>
+              <td>“정리된 tasks가 아직 없습니다.”</td>
+              <td>Review synthesis output.</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h3>S4. Settings</h3>
+        <ul>
+          <li>Vault path: 기본값은 `/Users/minjoun/Documents/DevKnowledge`로 시작한다.</li>
+          <li>Global hotkey: 기본값은 구현 시 충돌 검사를 거쳐 정한다.</li>
+          <li>Recording permission: microphone/system audio permission 상태를 표시한다.</li>
+          <li>AI provider: v1 UI는 provider 준비 상태만 표시할 수 있다. 실제 provider 결정은 ADR에서 확정한다.</li>
+          <li>Audio retention: v1 UI는 정책 준비 상태만 표시한다. 기본값은 ADR에서 확정한다.</li>
+        </ul>
+
+        <h3>S5. Widget</h3>
+        <p>
+          Widget은 core flow 이후 단계다. v1 문서에는 상태 표시와 빠른 진입 요구만 남긴다. 긴 작성, 녹음 permission, 편집은 앱이나 floating editor에서 처리한다.
+        </p>
+      </section>
+
+      <section id="states">
+        <h2>States and Errors</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>State</th>
+              <th>User sees</th>
+              <th>Required handling</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Recording permission denied</td>
+              <td>녹음 권한이 없어 녹음을 시작할 수 없다는 안내.</td>
+              <td>Notes 작성은 계속 가능해야 한다.</td>
+            </tr>
+            <tr>
+              <td>Transcription failed</td>
+              <td>Transcript 탭에 실패 상태와 retry/import option.</td>
+              <td>Raw notes와 audio reference는 보존한다.</td>
+            </tr>
+            <tr>
+              <td>AI synthesis failed</td>
+              <td>Synthesis 탭에 retry와 실패 이유.</td>
+              <td>Markdown draft는 notes 중심으로라도 생성한다.</td>
+            </tr>
+            <tr>
+              <td>Obsidian write failed</td>
+              <td>저장 경로 문제와 retry action.</td>
+              <td>Local session state는 completed가 아니라 failed로 남긴다.</td>
+            </tr>
+            <tr>
+              <td>Active session interrupted</td>
+              <td>다시 열었을 때 autosaved notes와 timer status.</td>
+              <td>마지막 saved note chunk 이후부터 이어 쓸 수 있어야 한다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="data">
+        <h2>Data Contract</h2>
+        <p>
+          이 문서는 구현 전 화면 계약이므로 정확한 schema는 engineering plan에서 확정한다. 다만 화면과 저장소가 공유해야 할 최소 개념은 아래와 같다.
+        </p>
+        <pre><code>Session
+  id
+  title
+  type: solo | meeting
+  startedAt
+  endedAt?
+  recordingEnabled
+  obsidianPath?
+  status: active | processing | completed | failed
+
+NoteChunk
+  id
+  sessionId
+  text
+  startOffsetMs
+  endOffsetMs?
+  tags[]
+
+TranscriptChunk
+  id
+  sessionId
+  text
+  startOffsetMs
+  endOffsetMs
+  speaker?
+  confidence?
+
+Synthesis
+  id
+  sessionId
+  summary
+  decisions[]
+  tasks[]
+  questions[]
+  linkedEvidence[]</code></pre>
+      </section>
+
+      <section id="acceptance">
+        <h2>Acceptance Criteria</h2>
+        <ul>
+          <li>전역 단축키 또는 메뉴바에서 active session editor를 열 수 있다.</li>
+          <li>30분 이상 세션에서 긴 notes를 작성하고 timestamp가 유지된다.</li>
+          <li>녹음 OFF 상태에서도 핵심 notes flow가 완성된다.</li>
+          <li>녹음 ON 상태에서는 transcript chunk가 note chunk와 시간 기준으로 매칭된다.</li>
+          <li>note chunk 선택 시 전후 60초 transcript context를 볼 수 있다.</li>
+          <li>세션 종료 후 Markdown draft가 생성된다.</li>
+          <li>AI synthesis 실패, transcription 실패, Obsidian write 실패가 각각 별도 상태로 보인다.</li>
+          <li>Obsidian Markdown은 앱 DB 없이도 사람이 읽을 수 있다.</li>
+          <li>화면은 <a href="../design/">Brand / Design System</a>의 token, 색상, typography 원칙을 따른다.</li>
+        </ul>
+        <div class="callout">
+          <strong>Next document:</strong> 이 PRD를 기준으로 <code>docs/engineering/implementation-plan.html</code>을 작성한다. 다음 문서는 SwiftUI/AppKit 구조, local persistence, permission handling, test plan을 결정해야 한다.
+        </div>
+      </section>
+
+      <footer>
+        PRD / Screen Definition v1 created on 2026-07-03. Based on D14 Product-Core MVP, DESIGN.md, and current GitHub Pages documentation.
+      </footer>
+    </main>
+  </div>
+</body>
+</html>
