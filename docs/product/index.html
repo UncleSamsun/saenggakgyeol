@@ -117,6 +117,9 @@
       font-size: clamp(38px, 6vw, 70px);
       line-height: 1.05;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      white-space: normal;
     }
 
     .hero p {
@@ -423,6 +426,8 @@
     @media (max-width: 1040px) {
       .layout {
         grid-template-columns: 1fr;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
 
       aside {
@@ -436,6 +441,29 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 4px 16px;
+      }
+
+      nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+      }
+
+      h1 {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 30px;
+        line-height: 1.14;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .hero p {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 17px;
+        word-break: break-all;
+        line-break: anywhere;
       }
 
       .meta-grid,
@@ -457,6 +485,12 @@
       }
 
       .editor {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
         grid-template-columns: 1fr;
       }
     }
@@ -489,9 +523,9 @@
     <main>
       <header class="hero">
         <div class="eyebrow">Mac capture app</div>
-        <h1>메모와 녹음 transcript를 시간순으로 맞춰 생각의 맥락을 복원한다.</h1>
+        <h1>메모와 transcript를 시간순으로 맞춰 맥락을 복원한다.</h1>
         <p>
-          생각결은 일반 노트앱이 아니라 세션 기반 Mac 앱입니다. 회의나 혼자 생각하는 중에 흐름대로 쓴 메모를 녹음 transcript와 대조해, 나중에 “왜 이 생각을 했는지”까지 되살립니다.
+          세션 중 쓴 메모와 transcript를 맞춰, 나중에 생각의 이유를 되살립니다.
         </p>
         <div class="meta-grid" aria-label="핵심 메타 정보">
           <div class="meta"><b>Status</b><span>D14 Approved</span></div>

@@ -119,6 +119,9 @@
       font-size: clamp(40px, 6vw, 76px);
       line-height: 1.05;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      white-space: normal;
     }
 
     .hero p {
@@ -139,6 +142,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      max-width: 100%;
       min-height: 40px;
       padding: 8px 14px;
       border: 1px solid var(--line);
@@ -147,6 +151,8 @@
       color: var(--ink);
       font-weight: 700;
       text-decoration: none;
+      text-align: center;
+      white-space: normal;
     }
 
     .button.primary {
@@ -350,6 +356,8 @@
     @media (max-width: 1080px) {
       .shell {
         grid-template-columns: 1fr;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
 
       aside {
@@ -365,6 +373,38 @@
         gap: 4px 16px;
       }
 
+      nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
+      }
+
+      h1 {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 30px;
+        line-height: 1.14;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .hero p {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 17px;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .quick-links {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
+      }
+
       .cards,
       .doc-grid {
         grid-template-columns: 1fr;
@@ -377,6 +417,12 @@
       .tracker {
         display: block;
         overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      nav {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -404,9 +450,9 @@
     <main>
       <header class="hero" id="overview">
         <div class="eyebrow">GitHub Pages main</div>
-        <h1>기획부터 개발까지, 생각결의 모든 진행 상황을 한 페이지에서 추적한다.</h1>
+        <h1>생각결 기획·개발 트래커</h1>
         <p>
-          이 페이지는 생각결 프로젝트의 메인 대시보드입니다. 제품 컨셉, UX 결정, 개발 단계, 산출물, 다음 작업을 한곳에서 확인할 수 있게 유지합니다.
+          문서와 결정을 추적합니다.
         </p>
         <div class="quick-links">
           <a class="button primary" href="product/">제품 컨셉 문서 보기</a>

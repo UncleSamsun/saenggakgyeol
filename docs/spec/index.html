@@ -120,6 +120,9 @@
       font-size: clamp(42px, 6.4vw, 78px);
       line-height: 1.08;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      white-space: normal;
     }
 
     .hero p {
@@ -140,6 +143,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
+      max-width: 100%;
       min-height: 40px;
       padding: 8px 14px;
       border: 1px solid var(--sg-color-line);
@@ -148,6 +152,8 @@
       color: var(--sg-color-ink);
       font-weight: 700;
       text-decoration: none;
+      text-align: center;
+      white-space: normal;
     }
 
     .button.primary {
@@ -454,6 +460,8 @@
       .layout,
       .mock-grid {
         grid-template-columns: 1fr;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
 
       aside {
@@ -465,6 +473,12 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 4px 16px;
+      }
+
+      nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
       }
 
       .cards,
@@ -488,6 +502,32 @@
       section,
       .hero {
         padding-inline: 22px;
+      }
+
+      h1 {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 30px;
+        line-height: 1.14;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .hero p {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 17px;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .hero-links {
+        display: grid;
+        grid-template-columns: 1fr;
+      }
+
+      .button {
+        width: 100%;
       }
 
       .tabs,
@@ -523,9 +563,9 @@
     <main>
       <header class="hero" id="summary">
         <div class="eyebrow">PRD / Screen Definition v1</div>
-        <h1>생각결의 첫 구현은 “긴 세션을 쓰고, 시간 맥락을 되찾는” 흐름을 끝까지 닫는다.</h1>
+        <h1>긴 세션을 쓰고, 시간 맥락을 되찾는 첫 구현 계약.</h1>
         <p>
-          이 문서는 D14 승인 제품 방향을 macOS 앱 구현 계약으로 바꿉니다. 구현자는 여기서 MVP 범위, 사용자 흐름, 화면별 요구사항, 상태와 실패 처리를 확인하고 바로 skeleton 설계로 넘어갈 수 있어야 합니다.
+          MVP 범위, 사용자 흐름, 화면, 상태, 수락 기준을 잠그는 구현 계약입니다.
         </p>
         <div class="hero-links">
           <a class="button primary" href="#screens">화면 정의 보기</a>

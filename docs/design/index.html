@@ -145,6 +145,9 @@
       font-size: var(--sg-type-hero);
       line-height: 1.08;
       letter-spacing: 0;
+      overflow-wrap: anywhere;
+      word-break: normal;
+      white-space: normal;
     }
 
     .hero p {
@@ -455,6 +458,8 @@
       .specimen,
       .logo-row {
         grid-template-columns: 1fr;
+        max-width: 100vw;
+        overflow-x: hidden;
       }
 
       aside {
@@ -466,6 +471,12 @@
         display: grid;
         grid-template-columns: repeat(2, minmax(0, 1fr));
         gap: 4px 16px;
+      }
+
+      nav a {
+        display: flex;
+        align-items: center;
+        min-height: 44px;
       }
 
       .grid,
@@ -489,6 +500,23 @@
       section,
       .hero {
         padding-inline: 22px;
+      }
+
+      h1 {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 30px;
+        line-height: 1.14;
+        word-break: break-all;
+        line-break: anywhere;
+      }
+
+      .hero p {
+        width: calc(100vw - 44px);
+        max-width: calc(100vw - 44px);
+        font-size: 17px;
+        word-break: break-all;
+        line-break: anywhere;
       }
 
       .tabs {
@@ -521,9 +549,9 @@
       <header class="hero">
         <div>
           <div class="eyebrow">Brand / Design System v1</div>
-          <h1>조용하게, 생각의 시간 맥락을 되찾는 Mac 작업 표면.</h1>
+          <h1>조용하게, 생각의 시간 맥락을 되찾는 작업 표면.</h1>
           <p>
-            생각결의 디자인은 노트앱의 귀여움이나 AI 제품의 과한 장식보다, 세션 중 사용자가 남긴 생각과 transcript가 만나는 순간을 정확하게 보여주는 데 집중합니다.
+            사용자가 남긴 notes와 transcript가 만나는 순간을 정확하게 보여주는 기준입니다.
           </p>
         </div>
         <div class="hero-mark">
