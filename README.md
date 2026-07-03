@@ -8,9 +8,9 @@
 - [Product concept HTML](docs/product/index.html)
 - [Docs index](docs/README.md)
 
-Published URL after GitHub Pages deployment:
+Published URL:
 
-- `https://unclesamsun.github.io/saenggakgyeol/`
+- `https://minjoon.me/saenggakgyeol/`
 
 ## Current Status
 
