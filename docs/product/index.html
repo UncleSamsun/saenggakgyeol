@@ -498,7 +498,7 @@
           <div class="meta"><b>Mode</b><span>Builder / Product</span></div>
           <div class="meta"><b>MVP</b><span>Product-Core</span></div>
           <div class="meta"><b>Source of truth</b><span>Obsidian Markdown</span></div>
-          <div class="meta"><b>Primary UI</b><span>Menu bar + Hotkey editor</span></div>
+          <div class="meta"><b>Primary UI</b><span>Menu bar + Sticky capture note</span></div>
         </div>
       </header>
 
@@ -518,7 +518,7 @@
           </div>
           <div class="panel">
             <h3>기본 사용</h3>
-            <p>단축키로 세션 에디터를 열고 자유롭게 타이핑합니다. 녹음은 필요할 때만 켭니다.</p>
+            <p>단축키로 sticky capture note를 열고 자유롭게 타이핑합니다. 녹음은 필요할 때만 켭니다.</p>
           </div>
           <div class="panel">
             <h3>저장 원칙</h3>
@@ -536,7 +536,7 @@
           생각결은 세션 중 작성한 메모 chunk에 자동으로 시간을 붙이고, 녹음이 켜져 있으면 transcript chunk와 맞춥니다. 세션 종료 후 AI가 이 둘을 함께 읽어 summary, decisions, tasks, questions, evidence snippets를 만듭니다.
         </p>
         <div class="flow" aria-label="제품 흐름">
-          <div class="step"><b>1. Open</b><span>전역 단축키 또는 메뉴바에서 세션 에디터를 엽니다.</span></div>
+          <div class="step"><b>1. Open</b><span>전역 단축키 또는 메뉴바에서 sticky capture note를 엽니다.</span></div>
           <div class="step"><b>2. Write</b><span>세션 내내 자유롭게 타이핑합니다. 각 chunk에는 시간이 붙습니다.</span></div>
           <div class="step"><b>3. Record</b><span>필요할 때만 녹음을 켭니다. 녹음은 기본값이 아닙니다.</span></div>
           <div class="step"><b>4. Match</b><span>메모 시간과 transcript 구간을 맞춰 맥락을 찾습니다.</span></div>
@@ -571,7 +571,8 @@
             <h3>포함</h3>
             <ul>
               <li>메뉴바 앱</li>
-              <li>전역 단축키 세션 에디터</li>
+              <li>전역 단축키 sticky capture note</li>
+              <li>확장형 세션 에디터</li>
               <li>긴 작성이 가능한 Notes 탭</li>
               <li>선택 녹음 토글</li>
               <li>timestamped note chunks</li>
@@ -599,9 +600,19 @@
       <section id="ux">
         <h2>UX 구조</h2>
         <p>
-          “작게 뜨는 창”은 작게 쓰는 창이 아닙니다. 생각결의 플로팅 창은 빠르게 나타나는 세션 에디터입니다. 사용자는 세션 내내 많은 내용을 작성할 수 있어야 하고, 필요하면 큰 작업 표면으로 확장할 수 있어야 합니다.
+          생각결의 기본 플로팅 UI는 복잡한 에디터가 아니라 sticky note처럼 단순한 capture surface입니다. 사용자는 작은 창에서 바로 쓰고, 녹음을 켜고, 세션을 끝낼 수 있습니다. transcript 대조, AI 정리, task 확인처럼 더 넓은 맥락이 필요할 때만 expanded session editor로 확장합니다.
         </p>
-        <div class="mock" aria-label="생각결 세션 에디터 와이어프레임">
+        <div class="decision-list">
+          <div class="panel">
+            <h3>Sticky capture note</h3>
+            <p>전역 단축키로 즉시 뜨는 작은 창입니다. 타이머, 입력창, 녹음 토글, autosave, expand, end session만 보여줍니다. 작지만 내용이 작아지면 안 되므로 스크롤과 점진적 높이 확장을 허용합니다.</p>
+          </div>
+          <div class="panel">
+            <h3>Expanded session editor</h3>
+            <p>Sticky note에서 확장되는 큰 작업 표면입니다. Notes / Transcript / Synthesis / Tasks 탭과 transcript evidence, session list, actions를 제공합니다.</p>
+          </div>
+        </div>
+        <div class="mock" aria-label="생각결 확장형 세션 에디터 와이어프레임">
           <div class="mock-bar">
             <strong>생각결 · Solo session · 18:42</strong>
             <span>녹음 OFF · 정리 대기 2</span>
@@ -647,7 +658,7 @@
       <section id="architecture">
         <h2>아키텍처</h2>
         <p>
-          첫 구현은 SwiftUI와 AppKit을 함께 쓰는 Mac 앱으로 보는 것이 현실적입니다. 메뉴바, 전역 단축키, floating window, 풍부한 에디터 제어는 SwiftUI만으로는 답답할 수 있습니다.
+          첫 구현은 SwiftUI와 AppKit을 함께 쓰는 Mac 앱으로 보는 것이 현실적입니다. 메뉴바, 전역 단축키, sticky note window, 확장형 에디터 제어는 SwiftUI만으로는 답답할 수 있습니다.
         </p>
         <div class="architecture">
           <div class="layer">
@@ -655,7 +666,8 @@
             <ul>
               <li>Menu bar</li>
               <li>Global hotkey</li>
-              <li>Floating session editor</li>
+              <li>Sticky capture note</li>
+              <li>Expanded session editor</li>
               <li>Recording toggle</li>
             </ul>
           </div>
@@ -774,7 +786,7 @@ future:
             <b>Phase 1</b>
             <div>
               <strong>Capture skeleton</strong>
-              <p>메뉴바 앱, 전역 단축키, 긴 작성 가능한 세션 에디터, timestamped notes를 만든다.</p>
+              <p>메뉴바 앱, 전역 단축키 sticky capture note, 확장형 세션 에디터, timestamped notes를 만든다.</p>
             </div>
           </div>
           <div class="milestone">

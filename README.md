@@ -20,4 +20,4 @@ Published URL:
 - Product concept and MVP scope are approved as the D14 Product-Core direction.
 - Brand/Design System v1 is defined before app implementation.
 - PRD / Screen Definition v1 now translates the approved product direction into implementable flows, screens, states, and acceptance criteria.
-- The first implementation target is a Product-Core MVP: menu bar app, global hotkey session editor, optional recording, timestamped note chunks, transcript matching, AI synthesis, Obsidian Markdown output, and local DB indexing.
+- The first implementation target is a Product-Core MVP: menu bar app, global hotkey Sticky Capture Note, expandable session editor, optional recording, timestamped note chunks, transcript matching, AI synthesis, Obsidian Markdown output, and local DB indexing.

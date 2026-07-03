@@ -101,7 +101,8 @@ Product decision base: D14 Product-Core MVP approved
 
 - **Approach:** Hybrid. App screens use grid-disciplined native layout; docs and portfolio pages may use editorial rhythm.
 - **Grid:** 12 columns for docs/landing on desktop, 4 columns on tablet, 1 column on mobile.
-- **App editor:** Three-area structure when expanded: session list, active editor, context/actions. Floating mode can collapse side panels but not the writing surface.
+- **Capture surface:** Sticky Capture Note is the default global-hotkey surface: small, draggable, always-on-top capable, and focused on timestamped typing plus recording state.
+- **Expanded editor:** Three-area structure when expanded: session list, active editor, context/actions. Expansion reveals tabs and evidence panels without changing the active session.
 - **Max content width:** 1180px for docs, 860px for prose-heavy sections.
 - **Radius:** `--sg-radius-sm: 4px`, `--sg-radius-md: 8px`, `--sg-radius-lg: 12px`, `--sg-radius-full: 999px`.
 - **Borders:** Prefer 1px lines over heavy shadows. Shadows should be subtle and rare.
@@ -111,7 +112,7 @@ Product decision base: D14 Product-Core MVP approved
 - **Approach:** Minimal-functional.
 - **Durations:** micro 80ms, short 180ms, medium 280ms.
 - **Easing:** enter `cubic-bezier(.16, 1, .3, 1)`, exit `cubic-bezier(.7, 0, .84, 0)`, move `cubic-bezier(.45, 0, .2, 1)`.
-- **Use motion for:** opening floating editor, tab changes, transcript evidence reveal, processing state changes.
+- **Use motion for:** opening Sticky Capture Note, expanding into session editor, tab changes, transcript evidence reveal, processing state changes.
 - **Avoid:** playful bounce, scroll choreography, decorative animation.
 
 ## Component Contracts
@@ -122,10 +123,18 @@ Product decision base: D14 Product-Core MVP approved
 - Shows current session, recording state, pending synthesis count, recent sessions, and quick actions.
 - Use primary only for the most likely action: resume active session or start session.
 
-### Floating Session Editor
+### Sticky Capture Note
 
-- Starts fast and small, but the note writing area must remain a real editor.
+- Opens fast and small from the global hotkey.
+- Behaves like a simple sticky note: draggable, optionally always-on-top, minimal chrome, quiet autosave, visible timer, recording toggle, and end-session action.
+- The writing area may be compact, but the content cannot feel tiny: support scrolling, progressive height growth, and direct expansion before text becomes cramped.
+- It captures timestamped note chunks in the same session model used by the expanded editor.
+
+### Expanded Session Editor
+
+- Opens from Sticky Capture Note, menu bar recent sessions, or processing states.
 - Minimum expanded width target: 760px. Compact mode can hide session list and actions first.
+- Required areas: Notes, Transcript, Synthesis, Tasks, plus context/evidence when enough width exists.
 - Recording state must be visible but not dominant when off.
 
 ### Session List
