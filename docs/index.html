@@ -1,0 +1,622 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>생각결 Project Tracker</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #1f2328;
+      --muted: #636c76;
+      --line: #d8dee4;
+      --paper: #f6f5f1;
+      --surface: #ffffff;
+      --soft: #eef4f2;
+      --accent: #0f6b5f;
+      --accent-2: #8f4a2e;
+      --accent-3: #405a9f;
+      --done: #1f7a4d;
+      --doing: #9a6514;
+      --next: #56616f;
+      --shadow: 0 16px 40px rgba(31, 35, 40, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a {
+      color: var(--accent-3);
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+
+    .shell {
+      display: grid;
+      grid-template-columns: 282px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    aside {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      padding: 28px 22px;
+      overflow: auto;
+      border-right: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.72);
+      backdrop-filter: blur(18px);
+    }
+
+    .brand strong {
+      display: block;
+      font-size: 25px;
+      letter-spacing: 0;
+    }
+
+    .brand span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    nav {
+      margin-top: 28px;
+    }
+
+    nav a {
+      display: block;
+      padding: 8px 0;
+      color: var(--ink);
+      font-size: 14px;
+      text-decoration: none;
+      border-bottom: 1px solid rgba(216, 222, 228, 0.72);
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    .hero {
+      padding: 60px min(7vw, 88px) 38px;
+      border-bottom: 1px solid var(--line);
+      background:
+        linear-gradient(130deg, rgba(15, 107, 95, 0.10), transparent 42%),
+        linear-gradient(30deg, rgba(143, 74, 46, 0.10), transparent 44%),
+        var(--surface);
+    }
+
+    .eyebrow {
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 980px;
+      margin: 12px 0 16px;
+      font-size: clamp(40px, 6vw, 76px);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+
+    .hero p {
+      max-width: 880px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 20px;
+    }
+
+    .quick-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 28px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 8px 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      color: var(--ink);
+      font-weight: 700;
+      text-decoration: none;
+    }
+
+    .button.primary {
+      border-color: var(--accent);
+      color: #ffffff;
+      background: var(--accent);
+    }
+
+    section {
+      padding: 46px min(7vw, 88px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 30px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: 0;
+    }
+
+    p {
+      max-width: 920px;
+      margin: 0 0 14px;
+    }
+
+    ul {
+      max-width: 920px;
+      margin-top: 0;
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 6px 0;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .card {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .status.done {
+      color: #ffffff;
+      background: var(--done);
+    }
+
+    .status.doing {
+      color: #ffffff;
+      background: var(--doing);
+    }
+
+    .status.next {
+      color: #ffffff;
+      background: var(--next);
+    }
+
+    .tracker {
+      width: 100%;
+      margin-top: 20px;
+      border-collapse: collapse;
+      overflow: hidden;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .tracker th,
+    .tracker td {
+      padding: 13px 14px;
+      text-align: left;
+      vertical-align: top;
+      border-bottom: 1px solid var(--line);
+      font-size: 14px;
+    }
+
+    .tracker th {
+      color: var(--muted);
+      background: #f4f7f6;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tracker tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+      max-width: 980px;
+    }
+
+    .event {
+      display: grid;
+      grid-template-columns: 138px minmax(0, 1fr);
+      gap: 16px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    .event time {
+      color: var(--accent);
+      font-weight: 800;
+    }
+
+    .doc-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .doc {
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    details {
+      max-width: 980px;
+      margin-top: 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--surface);
+    }
+
+    summary {
+      cursor: pointer;
+      padding: 14px 16px;
+      font-weight: 800;
+    }
+
+    details div {
+      padding: 0 16px 16px;
+      color: var(--muted);
+    }
+
+    pre {
+      max-width: 980px;
+      margin: 18px 0 0;
+      padding: 18px;
+      overflow: auto;
+      border-radius: 8px;
+      background: #26303c;
+      color: #edf3f8;
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    footer {
+      padding: 34px min(7vw, 88px);
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    @media (max-width: 1080px) {
+      .shell {
+        grid-template-columns: 1fr;
+      }
+
+      aside {
+        position: static;
+        height: auto;
+        border-right: 0;
+        border-bottom: 1px solid var(--line);
+      }
+
+      nav {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 4px 16px;
+      }
+
+      .cards,
+      .doc-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .event {
+        grid-template-columns: 1fr;
+      }
+
+      .tracker {
+        display: block;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand">
+        <strong>생각결</strong>
+        <span>Planning to development tracker</span>
+      </div>
+      <nav aria-label="페이지 목차">
+        <a href="#overview">Overview</a>
+        <a href="#tracker">Master tracker</a>
+        <a href="#timeline">Decision timeline</a>
+        <a href="#documents">Documents</a>
+        <a href="#development">Development plan</a>
+        <a href="#structure">Repository structure</a>
+        <a href="#rules">Update rules</a>
+      </nav>
+    </aside>
+
+    <main>
+      <header class="hero" id="overview">
+        <div class="eyebrow">GitHub Pages main</div>
+        <h1>기획부터 개발까지, 생각결의 모든 진행 상황을 한 페이지에서 추적한다.</h1>
+        <p>
+          이 페이지는 생각결 프로젝트의 메인 대시보드입니다. 제품 컨셉, UX 결정, 개발 단계, 산출물, 다음 작업을 한곳에서 확인할 수 있게 유지합니다.
+        </p>
+        <div class="quick-links">
+          <a class="button primary" href="product/">제품 컨셉 문서 보기</a>
+          <a class="button" href="https://github.com/UncleSamsun/saenggakgyeol">GitHub repository</a>
+          <a class="button" href="#development">다음 개발 단계</a>
+        </div>
+      </header>
+
+      <section>
+        <h2>현재 프로젝트 정의</h2>
+        <div class="cards">
+          <div class="card">
+            <strong>제품</strong>
+            <p class="muted">메모와 녹음 transcript를 시간순으로 맞춰 생각의 맥락을 복원하는 Mac capture app.</p>
+          </div>
+          <div class="card">
+            <strong>첫 목표</strong>
+            <p class="muted">Product-Core MVP. 메뉴바, 전역 단축키, 긴 세션 에디터, 선택 녹음, AI 정리, Obsidian 저장.</p>
+          </div>
+          <div class="card">
+            <strong>운영 원칙</strong>
+            <p class="muted">새 기획, 개발 결정, 구현 단계, 검증 결과는 이 메인 페이지에서 찾을 수 있어야 한다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="tracker">
+        <h2>Master tracker</h2>
+        <p>
+          이 표가 프로젝트의 현재 상태판입니다. 앞으로 구현이 진행되면 새 artifact와 상태를 이곳에 추가합니다.
+        </p>
+        <table class="tracker">
+          <thead>
+            <tr>
+              <th>Track</th>
+              <th>Status</th>
+              <th>Current artifact</th>
+              <th>Next evidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Product concept</td>
+              <td><span class="status done">Done</span></td>
+              <td><a href="product/">docs/product/index.html</a></td>
+              <td>Engineering plan에서 MVP scope를 구현 단위로 쪼갠다.</td>
+            </tr>
+            <tr>
+              <td>GitHub Pages</td>
+              <td><span class="status doing">In progress</span></td>
+              <td>docs/index.html, deploy workflow</td>
+              <td>Pages deployment URL 확인.</td>
+            </tr>
+            <tr>
+              <td>Mac app skeleton</td>
+              <td><span class="status next">Next</span></td>
+              <td>Not started</td>
+              <td>SwiftUI/AppKit project, menu bar shell, global hotkey.</td>
+            </tr>
+            <tr>
+              <td>Session editor</td>
+              <td><span class="status next">Next</span></td>
+              <td>UX concept in product doc</td>
+              <td>Notes / Transcript / Synthesis / Tasks tabs working locally.</td>
+            </tr>
+            <tr>
+              <td>Storage</td>
+              <td><span class="status next">Next</span></td>
+              <td>Data model draft in product doc</td>
+              <td>SQLite schema and Obsidian Markdown writer.</td>
+            </tr>
+            <tr>
+              <td>Recording + transcript</td>
+              <td><span class="status next">Next</span></td>
+              <td>Decision: optional recording</td>
+              <td>Recording permission flow and transcript chunk import.</td>
+            </tr>
+            <tr>
+              <td>AI synthesis</td>
+              <td><span class="status next">Next</span></td>
+              <td>Decision: run on End Session</td>
+              <td>Prompt, output schema, failure state, Markdown draft.</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="timeline">
+        <h2>Decision timeline</h2>
+        <div class="timeline">
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>Naming</h3>
+              <p>프로젝트 이름을 <strong>생각결</strong>로 결정. 생각의 흐름과 결을 짧게 담는 이름.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>Market check</h3>
+              <p>Cleft, Granola, Notion AI Meeting Notes, Superwhisper, AudioPen을 참고. 차별점은 단순 음성 정리가 아니라 시간 맥락 복원.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>Core product moment</h3>
+              <p>메모와 transcript를 시간순으로 대조해 “왜 이 생각을 했는지”를 복원하는 장면을 핵심으로 선택.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>MVP approach</h3>
+              <p>Product-Core MVP 선택. 너무 얇은 노트앱 대신 핵심 장면을 첫 버전에 포함한다.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>Docs site</h3>
+              <p>GitHub Pages 메인 페이지에서 기획부터 개발까지 모든 내용을 추적하는 구조로 전환.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="documents">
+        <h2>Documents</h2>
+        <p>
+          모든 상세 문서는 이 섹션에서 접근할 수 있어야 합니다. 새 문서를 만들면 이 목록에 바로 추가합니다.
+        </p>
+        <div class="doc-grid">
+          <div class="doc">
+            <h3><a href="product/">Product concept</a></h3>
+            <p class="muted">제품 정의, 시장 포지션, MVP 범위, UX 구조, 데이터 모델, 로드맵.</p>
+          </div>
+          <div class="doc">
+            <h3>Engineering plan</h3>
+            <p class="muted">예정. Mac app skeleton, data flow, tests, permissions, release path를 정리한다.</p>
+          </div>
+          <div class="doc">
+            <h3>Architecture decisions</h3>
+            <p class="muted">예정. transcription engine, AI provider, audio retention, storage strategy를 ADR로 분리한다.</p>
+          </div>
+          <div class="doc">
+            <h3>Progress reports</h3>
+            <p class="muted">예정. 구현 단계별 결과, screenshots, demo links, known issues를 추적한다.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="development">
+        <h2>Development plan</h2>
+        <p>
+          구현은 아래 순서로 진행합니다. 각 단계가 끝날 때마다 이 페이지의 상태와 artifact 링크를 갱신합니다.
+        </p>
+        <details open>
+          <summary>Phase 1: Capture skeleton</summary>
+          <div>메뉴바 앱, 전역 단축키, floating session editor, timestamped notes. 첫 검증은 “30분짜리 긴 notes session을 저장할 수 있는가”입니다.</div>
+        </details>
+        <details>
+          <summary>Phase 2: Obsidian output + local index</summary>
+          <div>Markdown writer, SQLite session index, processing state. Markdown은 source of truth, DB는 cache/index입니다.</div>
+        </details>
+        <details>
+          <summary>Phase 3: Recording + transcript</summary>
+          <div>녹음 토글, 권한 흐름, transcript chunk 저장, note chunk와 시간 매칭.</div>
+        </details>
+        <details>
+          <summary>Phase 4: AI synthesis</summary>
+          <div>End Session 시 summary, decisions, tasks, questions, evidence snippets를 생성합니다. 실패 상태도 UI에 보여야 합니다.</div>
+        </details>
+        <details>
+          <summary>Phase 5: Widget + release polish</summary>
+          <div>Mac widget, demo screenshots, GitHub release, README polish, portfolio story.</div>
+        </details>
+      </section>
+
+      <section id="structure">
+        <h2>Repository structure</h2>
+        <p>
+          Pages site는 <code>docs/</code>를 정적 사이트 루트로 사용합니다. GitHub Actions가 이 폴더를 Pages artifact로 업로드합니다.
+        </p>
+        <pre><code>.
+├── README.md
+├── .github/
+│   └── workflows/
+│       └── deploy-pages.yml
+└── docs/
+    ├── .nojekyll
+    ├── README.md
+    ├── index.html              # GitHub Pages main tracker
+    └── product/
+        └── index.html          # Product concept detail</code></pre>
+      </section>
+
+      <section id="rules">
+        <h2>Update rules</h2>
+        <ul>
+          <li>새 기획 문서가 생기면 <strong>Documents</strong>에 링크를 추가한다.</li>
+          <li>새 개발 단계가 시작되면 <strong>Master tracker</strong>의 status를 바꾼다.</li>
+          <li>커다란 제품 결정은 <strong>Decision timeline</strong>에 한 줄로 남긴다.</li>
+          <li>각 phase가 끝나면 산출물 링크와 검증 결과를 메인 페이지에 추가한다.</li>
+          <li>Pages 배포가 실패하면 workflow 로그와 수정 커밋을 tracker에 남긴다.</li>
+        </ul>
+      </section>
+
+      <footer>
+        Last updated: 2026-07-03. This page is the source map for 생각결 planning and development.
+      </footer>
+    </main>
+  </div>
+</body>
+</html>

@@ -4,8 +4,13 @@
 
 ## Documentation
 
+- [GitHub Pages main tracker](docs/index.html)
 - [Product concept HTML](docs/product/index.html)
 - [Docs index](docs/README.md)
+
+Published URL after GitHub Pages deployment:
+
+- `https://unclesamsun.github.io/saenggakgyeol/`
 
 ## Current Status
 
