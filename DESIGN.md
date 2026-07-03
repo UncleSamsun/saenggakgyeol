@@ -208,3 +208,4 @@ Map tokens into native app code using:
 | 2026-07-03 | Brand direction set to Quiet Native Workspace | The product should feel calm, precise, Mac-native, and private. |
 | 2026-07-03 | Logo direction set to 결/시간선 심볼 | It represents note chunks and transcript chunks matching over time without generic AI-note imagery. |
 | 2026-07-03 | Typography set to Gowun Batang, IBM Plex Sans KR, IBM Plex Mono | Korean brand identity, readable long-form docs, and precise timestamp/data rendering. |
+| 2026-07-03 | Logo symbol redrawn with mirrored, point-symmetric curves and no diagonal accent stroke | The original curves were organic and asymmetric, reading as messy at hero size. A precise 180°-symmetric crossing (still two timelines meeting at one node) fits Quiet Native Workspace better. Applied to logo-symbol.svg, favicon.svg, logo-wordmark.svg, app-icon-source.svg. |

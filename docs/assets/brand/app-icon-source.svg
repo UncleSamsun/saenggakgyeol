@@ -1,14 +1,13 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-labelledby="title desc">
   <title id="title">생각결 app icon source</title>
-  <desc id="desc">Large source icon showing two time-context lines matching through a central recovered context node.</desc>
+  <desc id="desc">Large source icon showing two quiet timelines crossing at the moment context is restored.</desc>
   <rect width="1024" height="1024" rx="224" fill="#F8F9F6"/>
   <rect x="58" y="58" width="908" height="908" rx="190" fill="none" stroke="#D7DED9" stroke-width="20"/>
-  <path d="M185 339 C330 203 493 218 635 360 C709 434 789 452 878 405" fill="none" stroke="#155E52" stroke-width="68" stroke-linecap="round"/>
-  <path d="M137 683 C289 522 445 535 575 644 C690 740 797 759 891 653" fill="none" stroke="#355C9A" stroke-width="68" stroke-linecap="round"/>
-  <path d="M365 337 C423 462 514 547 646 638" fill="none" stroke="#B45F3A" stroke-width="42" stroke-linecap="round"/>
-  <circle cx="346" cy="273" r="58" fill="#155E52"/>
-  <circle cx="636" cy="360" r="58" fill="#155E52"/>
-  <circle cx="363" cy="591" r="58" fill="#355C9A"/>
-  <circle cx="650" cy="707" r="58" fill="#355C9A"/>
-  <circle cx="512" cy="512" r="78" fill="#F4C95D" stroke="#1E2320" stroke-width="28"/>
+  <path d="M160 368 C336 368 400 512 512 512 C624 512 688 656 864 656" fill="none" stroke="#155E52" stroke-width="56" stroke-linecap="round"/>
+  <path d="M160 656 C336 656 400 512 512 512 C624 512 688 368 864 368" fill="none" stroke="#355C9A" stroke-width="56" stroke-linecap="round"/>
+  <circle cx="160" cy="368" r="48" fill="#155E52"/>
+  <circle cx="864" cy="656" r="48" fill="#155E52"/>
+  <circle cx="160" cy="656" r="48" fill="#355C9A"/>
+  <circle cx="864" cy="368" r="48" fill="#355C9A"/>
+  <circle cx="512" cy="512" r="72" fill="#F4C95D" stroke="#1E2320" stroke-width="24"/>
 </svg>
