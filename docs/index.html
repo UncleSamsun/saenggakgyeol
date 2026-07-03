@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>생각결 Project Tracker</title>
+  <title>생각결 Documents</title>
   <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,19 +11,19 @@
   <style>
     :root {
       color-scheme: light;
-      --ink: #1f2328;
-      --muted: #636c76;
-      --line: #d8dee4;
-      --paper: #f6f5f1;
-      --surface: #ffffff;
-      --soft: #eef4f2;
-      --accent: #0f6b5f;
-      --accent-2: #8f4a2e;
-      --accent-3: #405a9f;
-      --done: #1f7a4d;
-      --doing: #9a6514;
-      --next: #56616f;
-      --shadow: 0 8px 22px rgba(31, 35, 40, 0.045);
+      --sg-color-ink: #1E2320;
+      --sg-color-muted: #657169;
+      --sg-color-canvas: #F8F9F6;
+      --sg-color-surface: #FFFFFF;
+      --sg-color-surface-soft: #F0F4F1;
+      --sg-color-line: #D7DED9;
+      --sg-color-primary: #155E52;
+      --sg-color-context-blue: #355C9A;
+      --sg-color-warm: #B45F3A;
+      --sg-color-focus: #F4C95D;
+      --sg-shadow-soft: 0 8px 24px rgba(30, 35, 32, 0.045);
+      --sg-radius: 8px;
+      --sg-page: 1160px;
     }
 
     * {
@@ -36,197 +36,288 @@
 
     body {
       margin: 0;
-      color: var(--ink);
-      background: var(--paper);
+      background: var(--sg-color-canvas);
+      color: var(--sg-color-ink);
       font-family: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
       line-height: 1.65;
+      overflow-x: hidden;
     }
 
     a {
-      color: var(--accent-3);
-      text-decoration-thickness: 1px;
+      color: var(--sg-color-context-blue);
       text-underline-offset: 3px;
+      text-decoration-thickness: 1px;
     }
 
-    .shell {
-      display: grid;
-      grid-template-columns: 282px minmax(0, 1fr);
-      min-height: 100vh;
+    code,
+    time,
+    .mono {
+      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
     }
 
-    aside {
+    .site-header {
       position: sticky;
       top: 0;
-      height: 100vh;
-      padding: 28px 22px;
-      overflow: auto;
-      border-right: 1px solid var(--line);
-      background: rgba(255, 255, 255, 0.72);
+      z-index: 5;
+      border-bottom: 1px solid rgba(215, 222, 217, 0.86);
+      background: rgba(248, 249, 246, 0.92);
       backdrop-filter: blur(18px);
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      max-width: var(--sg-page);
+      min-height: 64px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--sg-color-ink);
+      text-decoration: none;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 8px;
+      background: var(--sg-color-surface);
+    }
+
+    .brand-mark img {
+      width: 22px;
+      height: 22px;
     }
 
     .brand strong {
       display: block;
-      font-size: 25px;
+      font-size: 18px;
+      line-height: 1.1;
       letter-spacing: 0;
     }
 
-    .brand span {
+    .brand-copy {
       display: block;
-      margin-top: 6px;
-      color: var(--muted);
-      font-size: 13px;
+    }
+
+    .tagline {
+      display: block;
+      color: var(--sg-color-muted);
+      font-size: 12px;
+      line-height: 1.2;
     }
 
     nav {
-      margin-top: 28px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 6px;
     }
 
     nav a {
-      display: block;
-      padding: 8px 0;
-      color: var(--ink);
-      font-size: 14px;
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 5px 10px;
+      border-radius: 7px;
+      color: var(--sg-color-ink);
+      font-size: 13px;
+      font-weight: 600;
       text-decoration: none;
-      border-bottom: 1px solid rgba(216, 222, 228, 0.72);
     }
 
     nav a:hover {
-      color: var(--accent);
+      background: var(--sg-color-surface-soft);
+      color: var(--sg-color-primary);
     }
 
     main {
+      max-width: var(--sg-page);
+      margin: 0 auto;
+      padding: 0 24px 52px;
+      overflow-x: hidden;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: minmax(0, 1.25fr) minmax(280px, 0.75fr);
+      gap: 28px;
+      padding: 28px 0 24px;
+      border-bottom: 1px solid var(--sg-color-line);
       min-width: 0;
     }
 
-    .hero {
-      padding: 60px min(7vw, 88px) 38px;
-      border-bottom: 1px solid var(--line);
-      background:
-        linear-gradient(130deg, rgba(15, 107, 95, 0.10), transparent 42%),
-        linear-gradient(30deg, rgba(143, 74, 46, 0.10), transparent 44%),
-        var(--surface);
-    }
-
     .eyebrow {
-      color: var(--accent);
-      font-size: 13px;
+      color: var(--sg-color-primary);
+      font-size: 12px;
       font-weight: 800;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
     }
 
     h1 {
-      max-width: 980px;
-      margin: 12px 0 16px;
-      font-size: clamp(40px, 6vw, 76px);
-      line-height: 1.05;
-      letter-spacing: 0;
+      max-width: 620px;
+      margin: 8px 0 10px;
       font-family: "Gowun Batang", serif;
-      overflow-wrap: anywhere;
-      word-break: normal;
-      white-space: normal;
+      font-size: clamp(30px, 3.1vw, 42px);
+      line-height: 1.14;
+      letter-spacing: 0;
     }
 
-    .hero p {
-      max-width: 880px;
+    .intro p {
+      max-width: 680px;
       margin: 0;
-      color: var(--muted);
-      font-size: 20px;
+      color: var(--sg-color-muted);
+      font-size: 16px;
+      overflow-wrap: anywhere;
     }
 
-    .quick-links {
+    .focus-panel {
+      align-self: end;
+      min-width: 0;
+      max-width: 100%;
+      padding: 16px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: var(--sg-radius);
+      background: var(--sg-color-surface);
+      box-shadow: var(--sg-shadow-soft);
+    }
+
+    .focus-panel b {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 13px;
+      color: var(--sg-color-warm);
+    }
+
+    .focus-panel p {
+      color: var(--sg-color-ink);
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .focus-actions {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 28px;
+      gap: 8px;
+      margin-top: 14px;
     }
 
     .button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      max-width: 100%;
-      min-height: 40px;
-      padding: 8px 14px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      color: var(--ink);
-      font-weight: 700;
-      text-decoration: none;
+      min-width: 0;
+      min-height: 36px;
+      padding: 7px 12px;
+      border: 1px solid var(--sg-color-line);
+      border-radius: 7px;
+      background: var(--sg-color-surface);
+      color: var(--sg-color-ink);
+      font-size: 13px;
+      font-weight: 800;
       text-align: center;
-      white-space: normal;
+      text-decoration: none;
     }
 
     .button.primary {
-      border-color: var(--accent);
-      color: #ffffff;
-      background: var(--accent);
+      border-color: var(--sg-color-primary);
+      background: var(--sg-color-primary);
+      color: #FFFFFF;
     }
 
     section {
-      padding: 46px min(7vw, 88px);
-      border-bottom: 1px solid var(--line);
+      padding: 38px 0;
+      border-bottom: 1px solid var(--sg-color-line);
+      min-width: 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
     }
 
     h2 {
-      margin: 0 0 18px;
-      font-size: 30px;
+      margin: 0;
+      font-size: 25px;
       line-height: 1.2;
       letter-spacing: 0;
     }
 
-    h3 {
-      margin: 0 0 10px;
+    .section-head p,
+    section > p {
+      max-width: 760px;
+      margin: 0;
+      color: var(--sg-color-muted);
+    }
+
+    .doc-list {
+      max-width: 100%;
+      border: 1px solid var(--sg-color-line);
+      border-radius: var(--sg-radius);
+      background: var(--sg-color-surface);
+      overflow: hidden;
+      box-shadow: var(--sg-shadow-soft);
+    }
+
+    .doc-row {
+      display: grid;
+      grid-template-columns: 144px minmax(0, 1fr) 132px 118px;
+      gap: 18px;
+      align-items: center;
+      padding: 18px;
+      border-bottom: 1px solid var(--sg-color-line);
+    }
+
+    .doc-row:last-child {
+      border-bottom: 0;
+    }
+
+    .doc-row:hover {
+      background: #FBFCFA;
+    }
+
+    .doc-type {
+      color: var(--sg-color-muted);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .doc-main h3 {
+      margin: 0 0 4px;
       font-size: 18px;
+      line-height: 1.25;
       letter-spacing: 0;
     }
 
-    p {
-      max-width: 920px;
-      margin: 0 0 14px;
-    }
-
-    ul {
-      max-width: 920px;
-      margin-top: 0;
-      padding-left: 22px;
-    }
-
-    li {
-      margin: 6px 0;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 20px;
-    }
-
-    .card {
-      padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
-    }
-
-    .card strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-
-    .muted {
-      color: var(--muted);
+    .doc-main p {
+      margin: 0;
+      color: var(--sg-color-muted);
+      font-size: 14px;
+      overflow-wrap: anywhere;
     }
 
     .status {
       display: inline-flex;
       align-items: center;
-      min-height: 26px;
-      padding: 3px 9px;
+      justify-content: center;
+      min-height: 28px;
+      padding: 4px 9px;
       border-radius: 999px;
       font-size: 12px;
       font-weight: 800;
@@ -234,46 +325,57 @@
     }
 
     .status.done {
-      color: #ffffff;
-      background: var(--done);
+      color: #FFFFFF;
+      background: var(--sg-color-primary);
     }
 
-    .status.doing {
-      color: #ffffff;
-      background: var(--doing);
+    .status.ready {
+      color: #FFFFFF;
+      background: var(--sg-color-context-blue);
     }
 
     .status.next {
-      color: #ffffff;
-      background: var(--next);
+      color: var(--sg-color-ink);
+      background: var(--sg-color-focus);
+    }
+
+    .status.note {
+      color: var(--sg-color-warm);
+      background: #F7E8E0;
+    }
+
+    .open-link {
+      justify-self: end;
+      font-weight: 800;
+      text-decoration: none;
     }
 
     .tracker {
       width: 100%;
-      margin-top: 20px;
+      max-width: 100%;
       border-collapse: collapse;
+      border: 1px solid var(--sg-color-line);
+      border-radius: var(--sg-radius);
+      background: var(--sg-color-surface);
       overflow: hidden;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
-      box-shadow: var(--shadow);
+      box-shadow: var(--sg-shadow-soft);
     }
 
     .tracker th,
     .tracker td {
       padding: 13px 14px;
+      border-bottom: 1px solid var(--sg-color-line);
       text-align: left;
       vertical-align: top;
-      border-bottom: 1px solid var(--line);
       font-size: 14px;
     }
 
     .tracker th {
-      color: var(--muted);
-      background: #f4f7f6;
+      color: var(--sg-color-muted);
+      background: #F1F5F2;
       font-size: 12px;
-      text-transform: uppercase;
       letter-spacing: 0.04em;
+      text-transform: uppercase;
     }
 
     .tracker tr:last-child td {
@@ -282,142 +384,167 @@
 
     .timeline {
       display: grid;
-      gap: 14px;
-      margin-top: 20px;
-      max-width: 980px;
+      gap: 10px;
+      max-width: 920px;
     }
 
     .event {
       display: grid;
-      grid-template-columns: 138px minmax(0, 1fr);
+      grid-template-columns: 116px minmax(0, 1fr);
       gap: 16px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
+      padding: 14px 0;
+      border-bottom: 1px solid var(--sg-color-line);
+    }
+
+    .event:last-child {
+      border-bottom: 0;
     }
 
     .event time {
-      color: var(--accent);
+      color: var(--sg-color-primary);
+      font-size: 13px;
       font-weight: 800;
     }
 
-    .doc-grid {
+    .event h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .event p {
+      margin: 0;
+      color: var(--sg-color-muted);
+      font-size: 14px;
+    }
+
+    .phase-list {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 20px;
+      gap: 0;
+      max-width: 100%;
+      border: 1px solid var(--sg-color-line);
+      border-radius: var(--sg-radius);
+      background: var(--sg-color-surface);
+      overflow: hidden;
     }
 
-    .doc {
+    .phase {
+      display: grid;
+      grid-template-columns: 118px minmax(0, 1fr);
+      gap: 18px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--sg-color-line);
+    }
+
+    .phase:last-child {
+      border-bottom: 0;
+    }
+
+    .phase b {
+      color: var(--sg-color-context-blue);
+    }
+
+    .phase h3 {
+      margin: 0 0 4px;
+      font-size: 16px;
+      letter-spacing: 0;
+    }
+
+    .phase p {
+      margin: 0;
+      color: var(--sg-color-muted);
+      font-size: 14px;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+      gap: 16px;
+      align-items: start;
+    }
+
+    .repo-note {
       padding: 18px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
+      border: 1px solid var(--sg-color-line);
+      border-radius: var(--sg-radius);
+      background: var(--sg-color-surface);
     }
 
-    details {
-      max-width: 980px;
-      margin-top: 12px;
-      border: 1px solid var(--line);
-      border-radius: 8px;
-      background: var(--surface);
+    .repo-note h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
     }
 
-    summary {
-      cursor: pointer;
-      padding: 14px 16px;
-      font-weight: 800;
+    .repo-note p,
+    .repo-note li {
+      color: var(--sg-color-muted);
+      font-size: 14px;
     }
 
-    details div {
-      padding: 0 16px 16px;
-      color: var(--muted);
+    ul {
+      margin: 0;
+      padding-left: 20px;
+    }
+
+    li {
+      margin: 6px 0;
     }
 
     pre {
-      max-width: 980px;
-      margin: 18px 0 0;
+      max-width: 100%;
+      margin: 0;
       padding: 18px;
       overflow: auto;
-      border-radius: 8px;
-      background: #26303c;
-      color: #edf3f8;
+      border-radius: var(--sg-radius);
+      background: #26303C;
+      color: #EDF3F8;
       font-size: 13px;
       line-height: 1.55;
     }
 
-    code {
-      font-family: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
-
     footer {
-      padding: 34px min(7vw, 88px);
-      color: var(--muted);
+      padding: 26px 0 0;
+      color: var(--sg-color-muted);
       font-size: 13px;
     }
 
-    @media (max-width: 1080px) {
-      .shell {
-        grid-template-columns: 1fr;
-        max-width: 100vw;
-        overflow-x: hidden;
-      }
-
-      aside {
-        position: static;
-        height: auto;
-        border-right: 0;
-        border-bottom: 1px solid var(--line);
+    @media (max-width: 900px) {
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 12px;
+        padding: 14px 20px;
       }
 
       nav {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        gap: 4px 16px;
+        justify-content: flex-start;
       }
 
-      nav a {
-        display: flex;
-        align-items: center;
-        min-height: 44px;
+      main {
+        padding: 0 20px 42px;
       }
 
-      h1 {
-        width: 100%;
-        max-width: 100%;
-        font-size: 30px;
-        line-height: 1.14;
-        word-break: break-all;
-        line-break: anywhere;
-      }
-
-      .hero p {
-        width: 100%;
-        max-width: 100%;
-        font-size: 17px;
-        word-break: break-all;
-        line-break: anywhere;
-      }
-
-      .quick-links {
-        display: grid;
-        grid-template-columns: 1fr;
-        max-width: 100%;
-      }
-
-      .button {
-        width: 100%;
-        min-width: 0;
-      }
-
-      .cards,
-      .doc-grid {
+      .intro,
+      .repo-grid {
         grid-template-columns: 1fr;
       }
 
-      .event {
+      .focus-panel {
+        align-self: stretch;
+      }
+
+      .section-head {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .doc-row {
         grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .open-link {
+        justify-self: start;
       }
 
       .tracker {
@@ -426,353 +553,326 @@
       }
     }
 
-    @media (max-width: 640px) {
+    @media (max-width: 560px) {
+      .tagline {
+        display: none;
+      }
+
       nav {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow-x: auto;
+        width: 100%;
+        padding-bottom: 2px;
+      }
+
+      nav a {
+        flex: 0 0 auto;
+        width: auto;
+        min-height: 32px;
+        white-space: nowrap;
+      }
+
+      .button {
+        width: 100%;
+      }
+
+      h1 {
+        font-size: 30px;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+
+      .intro {
+        padding-top: 26px;
+      }
+
+      .event,
+      .phase {
         grid-template-columns: 1fr;
+        gap: 6px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="shell">
-    <aside>
-      <div class="brand">
-        <strong>생각결</strong>
-        <span>Planning to development tracker</span>
-      </div>
-      <nav aria-label="페이지 목차">
-        <a href="#overview">Overview</a>
-        <a href="#design">Design system</a>
-        <a href="#spec">PRD</a>
-        <a href="#tracker">Master tracker</a>
-        <a href="#timeline">Decision timeline</a>
+  <header class="site-header">
+    <div class="topbar">
+      <a class="brand" href="#top" aria-label="생각결 문서 홈">
+        <span class="brand-mark"><img src="assets/brand/logo-symbol.svg" alt=""></span>
+        <span class="brand-copy">
+          <strong>생각결</strong>
+          <span class="tagline">Mac capture app docs</span>
+        </span>
+      </a>
+      <nav aria-label="문서 허브">
         <a href="#documents">Documents</a>
-        <a href="#development">Development plan</a>
-        <a href="#structure">Repository structure</a>
-        <a href="#rules">Update rules</a>
+        <a href="#tracker">Tracker</a>
+        <a href="#timeline">Decisions</a>
+        <a href="#next">Next</a>
+        <a href="#repo">Repo</a>
       </nav>
-    </aside>
+    </div>
+  </header>
 
-    <main>
-      <header class="hero" id="overview">
-        <div class="eyebrow">GitHub Pages main</div>
-        <h1>생각결 기획·개발 트래커</h1>
+  <main id="top">
+    <section class="intro" aria-label="프로젝트 소개">
+      <div>
+        <div class="eyebrow">Project document hub</div>
+        <h1>생각결 문서 허브</h1>
         <p>
-          문서와 결정을 추적합니다.
+          제품 컨셉, 디자인 시스템, PRD, 결정 기록, 다음 구현 단계를 한 페이지에서 추적합니다.
+          아래 목록에서 현재 문서를 바로 열 수 있습니다.
         </p>
-        <div class="quick-links">
-          <a class="button primary" href="product/">제품 컨셉 문서 보기</a>
-          <a class="button" href="design/">디자인 시스템 보기</a>
-          <a class="button" href="spec/">PRD / 화면 정의서 보기</a>
-          <a class="button" href="https://github.com/UncleSamsun/saenggakgyeol">GitHub repository</a>
-          <a class="button" href="#development">다음 개발 단계</a>
-        </div>
-      </header>
-
-      <section>
-        <h2>현재 프로젝트 정의</h2>
-        <div class="cards">
-          <div class="card">
-            <strong>제품</strong>
-            <p class="muted">메모와 녹음 transcript를 시간순으로 맞춰 생각의 맥락을 복원하는 Mac capture app.</p>
-          </div>
-          <div class="card">
-            <strong>첫 목표</strong>
-            <p class="muted">Product-Core MVP. 메뉴바, sticky capture note, 확장형 세션 에디터, 선택 녹음, AI 정리, Obsidian 저장.</p>
-          </div>
-          <div class="card">
-            <strong>브랜드 기준</strong>
-            <p class="muted">Quiet Native Workspace. 조용한 맥락 복원, 결/시간선 심볼, 구현 가능한 token contract.</p>
-          </div>
-        </div>
-      </section>
-
-      <section id="spec">
-        <h2>PRD / Screen Definition</h2>
+      </div>
+      <aside class="focus-panel" aria-label="현재 포커스">
+        <b>Current focus</b>
         <p>
-          제품 컨셉과 디자인 시스템을 바탕으로 구현자가 바로 읽을 수 있는 PRD와 화면 정의서를 추가했습니다. 기능 요구사항, 사용자 흐름, 메뉴바 popover, Sticky Capture Note, expanded session editor, tabs, settings, widget, 상태/오류 처리, 수락 기준을 한 문서로 묶었습니다.
+          다음 단계는 Mac app skeleton입니다. 메뉴바, Sticky Capture Note, 확장 세션 에디터,
+          Obsidian Markdown 저장 흐름을 먼저 검증합니다.
         </p>
-        <div class="cards">
-          <div class="card">
-            <strong>Requirements</strong>
-            <p class="muted">R1-R10으로 메뉴바, 단축키, 긴 작성, 녹음, transcript, AI synthesis, Obsidian output을 정의합니다.</p>
-          </div>
-          <div class="card">
-            <strong>Screens</strong>
-            <p class="muted">Menu bar popover, Sticky Capture Note, expanded session editor, tabs, settings, widget의 화면별 역할과 동작을 잠급니다.</p>
-          </div>
-          <div class="card">
-            <strong>Acceptance</strong>
-            <p class="muted">30분 이상 notes session, timestamp 보존, 실패 상태, Markdown output까지 MVP 완료 기준을 둡니다.</p>
-          </div>
+        <div class="focus-actions">
+          <a class="button primary" href="spec/">PRD 보기</a>
+          <a class="button" href="#next">다음 단계</a>
         </div>
-      </section>
+      </aside>
+    </section>
 
-      <section id="design">
-        <h2>Design system</h2>
-        <p>
-          D14 Product-Core MVP를 승인한 뒤, 바로 앱 구현으로 넘어가지 않고 Brand/Design System v1을 먼저 만들었습니다. 이 문서는 앱, GitHub Pages, 랜딩/포트폴리오 산출물이 같은 얼굴을 갖게 하는 기준입니다.
-        </p>
-        <div class="cards">
-          <div class="card">
-            <strong>Direction</strong>
-            <p class="muted">Quiet Native Workspace. Mac 생산성 도구처럼 차분하고, 사용자가 직접 쓴 notes와 transcript evidence가 중심입니다.</p>
-          </div>
-          <div class="card">
-            <strong>Logo</strong>
-            <p class="muted">결/시간선 심볼. note chunk와 transcript chunk가 시간축 위에서 맞물리는 순간을 표현합니다.</p>
-          </div>
-          <div class="card">
-            <strong>Contract</strong>
-            <p class="muted">CSS는 <code>--sg-*</code>, Swift는 <code>SGColor</code>, <code>SGSpacing</code>, <code>SGTypography</code>로 매핑합니다.</p>
-          </div>
+    <section id="documents">
+      <div class="section-head">
+        <div>
+          <h2>Documents</h2>
+          <p>현재 읽을 수 있는 문서와 아직 만들어야 할 문서를 상태와 함께 나열합니다.</p>
         </div>
-      </section>
+        <a class="button" href="https://github.com/UncleSamsun/saenggakgyeol">GitHub repository</a>
+      </div>
 
-      <section id="tracker">
-        <h2>Master tracker</h2>
-        <p>
-          이 표가 프로젝트의 현재 상태판입니다. 앞으로 구현이 진행되면 새 artifact와 상태를 이곳에 추가합니다.
-        </p>
-        <table class="tracker">
-          <thead>
-            <tr>
-              <th>Track</th>
-              <th>Status</th>
-              <th>Current artifact</th>
-              <th>Next evidence</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Product concept</td>
-              <td><span class="status done">Done</span></td>
-              <td><a href="product/">docs/product/index.html</a></td>
-              <td>PRD / Screen Definition에서 구현 계약으로 변환했다.</td>
-            </tr>
-            <tr>
-              <td>PRD / Screen Definition</td>
-              <td><span class="status done">Done</span></td>
-              <td><a href="spec/">docs/spec/index.html</a></td>
-              <td>Engineering plan에서 SwiftUI/AppKit 구조, persistence, permission, test plan을 결정한다.</td>
-            </tr>
-            <tr>
-              <td>Brand / Design System</td>
-              <td><span class="status done">Done</span></td>
-              <td><a href="design/">docs/design/index.html</a>, <a href="https://github.com/UncleSamsun/saenggakgyeol/blob/main/DESIGN.md">DESIGN.md</a></td>
-              <td>Mac app skeleton 구현 시 token과 component contract를 적용한다.</td>
-            </tr>
-            <tr>
-              <td>GitHub Pages</td>
-              <td><span class="status done">Done</span></td>
-              <td>docs/index.html, deploy workflow</td>
-              <td><a href="https://minjoon.me/saenggakgyeol/">Published Pages URL</a> 유지.</td>
-            </tr>
-            <tr>
-              <td>Mac app skeleton</td>
-              <td><span class="status next">Next</span></td>
-              <td>Not started</td>
-              <td>SwiftUI/AppKit project, menu bar shell, global hotkey, Sticky Capture Note.</td>
-            </tr>
-            <tr>
-              <td>Session editor</td>
-              <td><span class="status next">Next</span></td>
-              <td>Sticky note + expanded editor concept in product/spec docs</td>
-              <td>Sticky note can expand into Notes / Transcript / Synthesis / Tasks tabs locally.</td>
-            </tr>
-            <tr>
-              <td>Storage</td>
-              <td><span class="status next">Next</span></td>
-              <td>Data model draft in product doc</td>
-              <td>SQLite schema and Obsidian Markdown writer.</td>
-            </tr>
-            <tr>
-              <td>Recording + transcript</td>
-              <td><span class="status next">Next</span></td>
-              <td>Decision: optional recording</td>
-              <td>Recording permission flow and transcript chunk import.</td>
-            </tr>
-            <tr>
-              <td>AI synthesis</td>
-              <td><span class="status next">Next</span></td>
-              <td>Decision: run on End Session</td>
-              <td>Prompt, output schema, failure state, Markdown draft.</td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
-
-      <section id="timeline">
-        <h2>Decision timeline</h2>
-        <div class="timeline">
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>Naming</h3>
-              <p>프로젝트 이름을 <strong>생각결</strong>로 결정. 생각의 흐름과 결을 짧게 담는 이름.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>Market check</h3>
-              <p>Cleft, Granola, Notion AI Meeting Notes, Superwhisper, AudioPen을 참고. 차별점은 단순 음성 정리가 아니라 시간 맥락 복원.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>Core product moment</h3>
-              <p>메모와 transcript를 시간순으로 대조해 “왜 이 생각을 했는지”를 복원하는 장면을 핵심으로 선택.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>MVP approach</h3>
-              <p>Product-Core MVP 선택. 너무 얇은 노트앱 대신 핵심 장면을 첫 버전에 포함한다.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>D14 approval</h3>
-              <p>Product-Core MVP 문서를 승인 상태로 잠그고, 구현 전에 브랜드/디자인 시스템을 먼저 만들기로 결정.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>Brand system</h3>
-              <p>조용한 맥락 복원, Quiet Native Workspace, 결/시간선 심볼, <code>--sg-*</code> token contract를 Brand/Design System v1로 정의.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>Docs site</h3>
-              <p>GitHub Pages 메인 페이지에서 기획부터 개발까지 모든 내용을 추적하는 구조로 전환.</p>
-            </div>
-          </div>
-          <div class="event">
-            <time>2026-07-03</time>
-            <div>
-              <h3>PRD handoff</h3>
-              <p>D14 제품 방향을 구현 가능한 PRD / Screen Definition v1로 변환. 다음 문서는 engineering implementation plan.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section id="documents">
-        <h2>Documents</h2>
-        <p>
-          모든 상세 문서는 이 섹션에서 접근할 수 있어야 합니다. 새 문서를 만들면 이 목록에 바로 추가합니다.
-        </p>
-        <div class="doc-grid">
-          <div class="doc">
-            <h3><a href="design/">Brand / Design System</a></h3>
-            <p class="muted">브랜드 방향, 로고, 색상, typography, token contract, core component 규칙.</p>
-          </div>
-          <div class="doc">
+      <div class="doc-list">
+        <article class="doc-row">
+          <div class="doc-type">Product</div>
+          <div class="doc-main">
             <h3><a href="product/">Product concept</a></h3>
-            <p class="muted">제품 정의, 시장 포지션, MVP 범위, UX 구조, 데이터 모델, 로드맵.</p>
+            <p>문제 정의, 포지셔닝, MVP 범위, UX 구조, 저장 원칙, 로드맵.</p>
           </div>
-          <div class="doc">
+          <span class="status done">Approved</span>
+          <a class="open-link" href="product/">Open</a>
+        </article>
+
+        <article class="doc-row">
+          <div class="doc-type">Design</div>
+          <div class="doc-main">
+            <h3><a href="design/">Brand / Design System</a></h3>
+            <p>Quiet Native Workspace, 로고, 색상, typography, token contract, component 기준.</p>
+          </div>
+          <span class="status done">Approved</span>
+          <a class="open-link" href="design/">Open</a>
+        </article>
+
+        <article class="doc-row">
+          <div class="doc-type">Spec</div>
+          <div class="doc-main">
             <h3><a href="spec/">PRD / Screen Definition</a></h3>
-            <p class="muted">기능 요구사항, 사용자 흐름, 화면별 구성, 상태/오류 처리, 수락 기준.</p>
+            <p>요구사항 R1-R10, user flow, 화면별 역할, 상태/오류, acceptance criteria.</p>
           </div>
-          <div class="doc">
-            <h3>Engineering plan</h3>
-            <p class="muted">예정. Mac app skeleton, data flow, tests, permissions, release path를 정리한다.</p>
+          <span class="status ready">Ready</span>
+          <a class="open-link" href="spec/">Open</a>
+        </article>
+
+        <article class="doc-row">
+          <div class="doc-type">Decision</div>
+          <div class="doc-main">
+            <h3><a href="spec/#screens">Sticky Capture Note</a></h3>
+            <p>플로팅 UI는 작은 sticky note로 시작하고, 긴 작성은 expanded session editor로 넘깁니다.</p>
           </div>
-          <div class="doc">
-            <h3>Architecture decisions</h3>
-            <p class="muted">예정. transcription engine, AI provider, audio retention, storage strategy를 ADR로 분리한다.</p>
+          <span class="status note">Applied</span>
+          <a class="open-link" href="spec/#screens">Open</a>
+        </article>
+
+        <article class="doc-row">
+          <div class="doc-type">Planning</div>
+          <div class="doc-main">
+            <h3><a href="#next">Engineering implementation plan</a></h3>
+            <p>SwiftUI/AppKit 구조, persistence, 권한, 테스트, 배포 흐름을 다음 문서로 정리합니다.</p>
           </div>
-          <div class="doc">
-            <h3>Progress reports</h3>
-            <p class="muted">예정. 구현 단계별 결과, screenshots, demo links, known issues를 추적한다.</p>
+          <span class="status next">Next</span>
+          <a class="open-link" href="#next">Open</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="tracker">
+      <div class="section-head">
+        <div>
+          <h2>Master Tracker</h2>
+          <p>프로젝트 산출물의 현재 위치와 다음 증거를 추적합니다.</p>
+        </div>
+      </div>
+
+      <table class="tracker">
+        <thead>
+          <tr>
+            <th>Track</th>
+            <th>Status</th>
+            <th>Artifact</th>
+            <th>Next evidence</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Product concept</td>
+            <td><span class="status done">Done</span></td>
+            <td><a href="product/">docs/product/index.html</a></td>
+            <td>PRD와 화면 정의서로 구현 계약화 완료.</td>
+          </tr>
+          <tr>
+            <td>Brand / Design System</td>
+            <td><span class="status done">Done</span></td>
+            <td><a href="design/">docs/design/index.html</a>, DESIGN.md</td>
+            <td>Mac 앱 구현 시 token과 component contract 적용.</td>
+          </tr>
+          <tr>
+            <td>PRD / Screen Definition</td>
+            <td><span class="status ready">Ready</span></td>
+            <td><a href="spec/">docs/spec/index.html</a></td>
+            <td>Engineering plan에서 app architecture와 테스트 전략 결정.</td>
+          </tr>
+          <tr>
+            <td>Mac app skeleton</td>
+            <td><span class="status next">Next</span></td>
+            <td>Not started</td>
+            <td>Menu bar shell, global hotkey, Sticky Capture Note, expanded editor.</td>
+          </tr>
+          <tr>
+            <td>Storage</td>
+            <td><span class="status next">Next</span></td>
+            <td>Drafted in product/spec docs</td>
+            <td>SQLite index and Obsidian Markdown writer.</td>
+          </tr>
+          <tr>
+            <td>Recording + transcript</td>
+            <td><span class="status next">Next</span></td>
+            <td>Decision: optional recording</td>
+            <td>Permission flow, transcript chunk import, note/transcript matching.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section id="timeline">
+      <div class="section-head">
+        <div>
+          <h2>Decision Timeline</h2>
+          <p>커다란 방향 전환만 남깁니다. 상세 내용은 각 문서로 이동합니다.</p>
+        </div>
+      </div>
+
+      <div class="timeline">
+        <div class="event">
+          <time>2026-07-03</time>
+          <div>
+            <h3>Product-Core MVP</h3>
+            <p>생각결은 단순 노트앱이 아니라 notes와 transcript를 시간순으로 맞춰 맥락을 복원하는 Mac capture app으로 정의.</p>
           </div>
         </div>
-      </section>
+        <div class="event">
+          <time>2026-07-03</time>
+          <div>
+            <h3>Brand system first</h3>
+            <p>앱 구현 전에 Quiet Native Workspace와 결/시간선 심볼, token contract를 먼저 승인.</p>
+          </div>
+        </div>
+        <div class="event">
+          <time>2026-07-03</time>
+          <div>
+            <h3>Sticky Capture Note</h3>
+            <p>플로팅 UI는 작은 capture note로 시작하고, 긴 작성은 tabs 기반 expanded session editor로 확장.</p>
+          </div>
+        </div>
+        <div class="event">
+          <time>2026-07-03</time>
+          <div>
+            <h3>Document hub redesign</h3>
+            <p>메인 페이지를 큰 히어로형 랜딩에서 문서 목록이 먼저 보이는 프로젝트 허브로 재구성.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <section id="development">
-        <h2>Development plan</h2>
-        <p>
-          구현은 아래 순서로 진행합니다. 각 단계가 끝날 때마다 이 페이지의 상태와 artifact 링크를 갱신합니다.
-        </p>
-        <details open>
-          <summary>Phase 0: PRD and screen contract</summary>
-          <div>완료. <a href="spec/">PRD / Screen Definition</a>에서 요구사항, 화면, 상태, 수락 기준을 구현 전 계약으로 잠갔습니다.</div>
-        </details>
-        <details open>
-          <summary>Phase 1: Capture skeleton</summary>
-          <div>메뉴바 앱, 전역 단축키 Sticky Capture Note, expanded session editor, timestamped notes. 첫 검증은 “sticky note에서 시작한 30분짜리 notes session을 확장 에디터와 Markdown까지 이어 저장할 수 있는가”입니다.</div>
-        </details>
-        <details>
-          <summary>Phase 2: Obsidian output + local index</summary>
-          <div>Markdown writer, SQLite session index, processing state. Markdown은 source of truth, DB는 cache/index입니다.</div>
-        </details>
-        <details>
-          <summary>Phase 3: Recording + transcript</summary>
-          <div>녹음 토글, 권한 흐름, transcript chunk 저장, note chunk와 시간 매칭.</div>
-        </details>
-        <details>
-          <summary>Phase 4: AI synthesis</summary>
-          <div>End Session 시 summary, decisions, tasks, questions, evidence snippets를 생성합니다. 실패 상태도 UI에 보여야 합니다.</div>
-        </details>
-        <details>
-          <summary>Phase 5: Widget + release polish</summary>
-          <div>Mac widget, demo screenshots, GitHub release, README polish, portfolio story.</div>
-        </details>
-      </section>
+    <section id="next">
+      <div class="section-head">
+        <div>
+          <h2>Next Development Path</h2>
+          <p>다음 문서와 구현은 아래 순서로 진행합니다.</p>
+        </div>
+      </div>
 
-      <section id="structure">
-        <h2>Repository structure</h2>
-        <p>
-          Pages site는 <code>docs/</code>를 정적 사이트 루트로 사용합니다. GitHub Actions가 이 폴더를 Pages artifact로 업로드합니다.
-        </p>
+      <div class="phase-list">
+        <div class="phase">
+          <b>Phase 0</b>
+          <div>
+            <h3>Engineering implementation plan</h3>
+            <p>SwiftUI/AppKit 선택, app lifecycle, data flow, permission, test plan, release strategy를 결정합니다.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <b>Phase 1</b>
+          <div>
+            <h3>Capture skeleton</h3>
+            <p>메뉴바 앱, 전역 단축키, Sticky Capture Note, timestamped notes, expanded editor shell.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <b>Phase 2</b>
+          <div>
+            <h3>Storage and Obsidian output</h3>
+            <p>Markdown writer, SQLite session index, local file naming, vault path settings.</p>
+          </div>
+        </div>
+        <div class="phase">
+          <b>Phase 3</b>
+          <div>
+            <h3>Recording, transcript, AI synthesis</h3>
+            <p>선택 녹음, transcript chunk, notes alignment, end-session synthesis, failure states.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="repo">
+      <div class="section-head">
+        <div>
+          <h2>Repository</h2>
+          <p>정적 Pages 문서는 <code>docs/</code>가 루트입니다.</p>
+        </div>
+      </div>
+
+      <div class="repo-grid">
+        <div class="repo-note">
+          <h3>Update rules</h3>
+          <ul>
+            <li>새 문서는 Documents 목록에 먼저 추가합니다.</li>
+            <li>큰 결정은 Decision Timeline에 한 줄로 남깁니다.</li>
+            <li>구현 단계가 바뀌면 Master Tracker 상태를 갱신합니다.</li>
+            <li>디자인 변경 전에는 DESIGN.md와 design page를 기준으로 확인합니다.</li>
+          </ul>
+        </div>
         <pre><code>.
 ├── DESIGN.md
 ├── README.md
-├── .github/
-│   └── workflows/
-│       └── deploy-pages.yml
+├── .github/workflows/deploy-pages.yml
 └── docs/
-    ├── .nojekyll
-    ├── README.md
-    ├── assets/
-    │   └── brand/
-    │       ├── app-icon-source.svg
-    │       ├── favicon.svg
-    │       ├── logo-symbol.svg
-    │       └── logo-wordmark.svg
-    ├── design/
-    │   └── index.html          # Brand / Design System
-    ├── index.html              # GitHub Pages main tracker
-    ├── product/
-    │   └── index.html          # Product concept detail
-    └── spec/
-        └── index.html          # PRD / Screen Definition</code></pre>
-      </section>
+    ├── index.html
+    ├── product/index.html
+    ├── design/index.html
+    ├── spec/index.html
+    └── assets/brand/*.svg</code></pre>
+      </div>
+    </section>
 
-      <section id="rules">
-        <h2>Update rules</h2>
-        <ul>
-          <li>새 기획 문서가 생기면 <strong>Documents</strong>에 링크를 추가한다.</li>
-          <li>시각/UI 결정을 하기 전에는 <strong>DESIGN.md</strong>와 <strong>Brand / Design System</strong>을 먼저 확인한다.</li>
-          <li>새 개발 단계가 시작되면 <strong>Master tracker</strong>의 status를 바꾼다.</li>
-          <li>커다란 제품 결정은 <strong>Decision timeline</strong>에 한 줄로 남긴다.</li>
-          <li>각 phase가 끝나면 산출물 링크와 검증 결과를 메인 페이지에 추가한다.</li>
-          <li>Pages 배포가 실패하면 workflow 로그와 수정 커밋을 tracker에 남긴다.</li>
-        </ul>
-      </section>
-
-      <footer>
-        Last updated: 2026-07-03. This page is the source map for 생각결 planning, design, and development.
-      </footer>
-    </main>
-  </div>
+    <footer>
+      Last updated: 2026-07-03. 생각결의 기획, 디자인, 구현 흐름을 추적하는 문서 허브입니다.
+    </footer>
+  </main>
 </body>
 </html>
