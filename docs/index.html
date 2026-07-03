@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>생각결 Project Tracker</title>
+  <link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
   <style>
     :root {
       color-scheme: light;
@@ -389,6 +390,7 @@
       </div>
       <nav aria-label="페이지 목차">
         <a href="#overview">Overview</a>
+        <a href="#design">Design system</a>
         <a href="#tracker">Master tracker</a>
         <a href="#timeline">Decision timeline</a>
         <a href="#documents">Documents</a>
@@ -407,6 +409,7 @@
         </p>
         <div class="quick-links">
           <a class="button primary" href="product/">제품 컨셉 문서 보기</a>
+          <a class="button" href="design/">디자인 시스템 보기</a>
           <a class="button" href="https://github.com/UncleSamsun/saenggakgyeol">GitHub repository</a>
           <a class="button" href="#development">다음 개발 단계</a>
         </div>
@@ -424,8 +427,29 @@
             <p class="muted">Product-Core MVP. 메뉴바, 전역 단축키, 긴 세션 에디터, 선택 녹음, AI 정리, Obsidian 저장.</p>
           </div>
           <div class="card">
-            <strong>운영 원칙</strong>
-            <p class="muted">새 기획, 개발 결정, 구현 단계, 검증 결과는 이 메인 페이지에서 찾을 수 있어야 한다.</p>
+            <strong>브랜드 기준</strong>
+            <p class="muted">Quiet Native Workspace. 조용한 맥락 복원, 결/시간선 심볼, 구현 가능한 token contract.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="design">
+        <h2>Design system</h2>
+        <p>
+          D14 Product-Core MVP를 승인한 뒤, 바로 앱 구현으로 넘어가지 않고 Brand/Design System v1을 먼저 만들었습니다. 이 문서는 앱, GitHub Pages, 랜딩/포트폴리오 산출물이 같은 얼굴을 갖게 하는 기준입니다.
+        </p>
+        <div class="cards">
+          <div class="card">
+            <strong>Direction</strong>
+            <p class="muted">Quiet Native Workspace. Mac 생산성 도구처럼 차분하고, 사용자가 직접 쓴 notes와 transcript evidence가 중심입니다.</p>
+          </div>
+          <div class="card">
+            <strong>Logo</strong>
+            <p class="muted">결/시간선 심볼. note chunk와 transcript chunk가 시간축 위에서 맞물리는 순간을 표현합니다.</p>
+          </div>
+          <div class="card">
+            <strong>Contract</strong>
+            <p class="muted">CSS는 <code>--sg-*</code>, Swift는 <code>SGColor</code>, <code>SGSpacing</code>, <code>SGTypography</code>로 매핑합니다.</p>
           </div>
         </div>
       </section>
@@ -452,10 +476,16 @@
               <td>Engineering plan에서 MVP scope를 구현 단위로 쪼갠다.</td>
             </tr>
             <tr>
+              <td>Brand / Design System</td>
+              <td><span class="status done">Done</span></td>
+              <td><a href="design/">docs/design/index.html</a>, <a href="https://github.com/UncleSamsun/saenggakgyeol/blob/main/DESIGN.md">DESIGN.md</a></td>
+              <td>Mac app skeleton 구현 시 token과 component contract를 적용한다.</td>
+            </tr>
+            <tr>
               <td>GitHub Pages</td>
-              <td><span class="status doing">In progress</span></td>
+              <td><span class="status done">Done</span></td>
               <td>docs/index.html, deploy workflow</td>
-              <td>Pages deployment URL 확인.</td>
+              <td><a href="https://minjoon.me/saenggakgyeol/">Published Pages URL</a> 유지.</td>
             </tr>
             <tr>
               <td>Mac app skeleton</td>
@@ -525,6 +555,20 @@
           <div class="event">
             <time>2026-07-03</time>
             <div>
+              <h3>D14 approval</h3>
+              <p>Product-Core MVP 문서를 승인 상태로 잠그고, 구현 전에 브랜드/디자인 시스템을 먼저 만들기로 결정.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
+              <h3>Brand system</h3>
+              <p>조용한 맥락 복원, Quiet Native Workspace, 결/시간선 심볼, <code>--sg-*</code> token contract를 Brand/Design System v1로 정의.</p>
+            </div>
+          </div>
+          <div class="event">
+            <time>2026-07-03</time>
+            <div>
               <h3>Docs site</h3>
               <p>GitHub Pages 메인 페이지에서 기획부터 개발까지 모든 내용을 추적하는 구조로 전환.</p>
             </div>
@@ -538,6 +582,10 @@
           모든 상세 문서는 이 섹션에서 접근할 수 있어야 합니다. 새 문서를 만들면 이 목록에 바로 추가합니다.
         </p>
         <div class="doc-grid">
+          <div class="doc">
+            <h3><a href="design/">Brand / Design System</a></h3>
+            <p class="muted">브랜드 방향, 로고, 색상, typography, token contract, core component 규칙.</p>
+          </div>
           <div class="doc">
             <h3><a href="product/">Product concept</a></h3>
             <p class="muted">제품 정의, 시장 포지션, MVP 범위, UX 구조, 데이터 모델, 로드맵.</p>
@@ -590,6 +638,7 @@
           Pages site는 <code>docs/</code>를 정적 사이트 루트로 사용합니다. GitHub Actions가 이 폴더를 Pages artifact로 업로드합니다.
         </p>
         <pre><code>.
+├── DESIGN.md
 ├── README.md
 ├── .github/
 │   └── workflows/
@@ -597,6 +646,14 @@
 └── docs/
     ├── .nojekyll
     ├── README.md
+    ├── assets/
+    │   └── brand/
+    │       ├── app-icon-source.svg
+    │       ├── favicon.svg
+    │       ├── logo-symbol.svg
+    │       └── logo-wordmark.svg
+    ├── design/
+    │   └── index.html          # Brand / Design System
     ├── index.html              # GitHub Pages main tracker
     └── product/
         └── index.html          # Product concept detail</code></pre>
@@ -606,6 +663,7 @@
         <h2>Update rules</h2>
         <ul>
           <li>새 기획 문서가 생기면 <strong>Documents</strong>에 링크를 추가한다.</li>
+          <li>시각/UI 결정을 하기 전에는 <strong>DESIGN.md</strong>와 <strong>Brand / Design System</strong>을 먼저 확인한다.</li>
           <li>새 개발 단계가 시작되면 <strong>Master tracker</strong>의 status를 바꾼다.</li>
           <li>커다란 제품 결정은 <strong>Decision timeline</strong>에 한 줄로 남긴다.</li>
           <li>각 phase가 끝나면 산출물 링크와 검증 결과를 메인 페이지에 추가한다.</li>
@@ -614,7 +672,7 @@
       </section>
 
       <footer>
-        Last updated: 2026-07-03. This page is the source map for 생각결 planning and development.
+        Last updated: 2026-07-03. This page is the source map for 생각결 planning, design, and development.
       </footer>
     </main>
   </div>
